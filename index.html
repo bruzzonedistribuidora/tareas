@@ -37,6 +37,97 @@
             line-height: 1.6;
         }
 
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Sync Status */
+        .sync-status {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .sync-status.syncing {
+            border-color: var(--accent-yellow);
+        }
+
+        .sync-status.synced {
+            border-color: var(--accent-green);
+        }
+
+        .sync-status.error {
+            border-color: var(--accent-red);
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+        }
+
+        .sync-status.syncing .sync-dot {
+            background: var(--accent-yellow);
+            animation: pulse 1s infinite;
+        }
+
+        .sync-status.error .sync-dot {
+            background: var(--accent-red);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         /* Header */
         .header {
             background: var(--bg-secondary);
@@ -73,6 +164,7 @@
             justify-content: center;
             font-weight: 700;
             font-size: 1.2rem;
+            color: white;
         }
 
         .logo-text {
@@ -297,6 +389,12 @@
             box-shadow: 0 4px 20px rgba(74, 158, 255, 0.3);
         }
 
+        .btn-agregar:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Filtros */
         .filtros-bar {
             display: flex;
@@ -422,7 +520,7 @@
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.25rem;
         }
 
         .tarea-titulo {
@@ -434,32 +532,26 @@
             font-size: 0.7rem;
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
         }
 
-        .tarea-categoria.distribuidora { background: rgba(249, 115, 22, 0.2); color: #f97316; }
-        .tarea-categoria.ferreteria { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
-        .tarea-categoria.desarrollo { background: rgba(167, 139, 250, 0.2); color: #a78bfa; }
-        .tarea-categoria.instagram { background: rgba(236, 72, 153, 0.2); color: #ec4899; }
-        .tarea-categoria.personal { background: rgba(52, 211, 153, 0.2); color: #34d399; }
+        .tarea-categoria.distribuidora { background: #fed7aa; color: #c2410c; }
+        .tarea-categoria.ferreteria { background: #a5f3fc; color: #0e7490; }
+        .tarea-categoria.desarrollo { background: #ddd6fe; color: #6d28d9; }
+        .tarea-categoria.instagram { background: #fbcfe8; color: #be185d; }
+        .tarea-categoria.personal { background: #bbf7d0; color: #15803d; }
 
         .tarea-prioridad {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
         }
-
-        .tarea-prioridad.alta { background: rgba(248, 113, 113, 0.2); color: var(--accent-red); }
-        .tarea-prioridad.media { background: rgba(251, 191, 36, 0.2); color: var(--accent-yellow); }
-        .tarea-prioridad.baja { background: rgba(52, 211, 153, 0.2); color: var(--accent-green); }
 
         .tarea-descripcion {
             font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            margin: 0.4rem 0;
         }
 
         .tarea-meta {
@@ -469,10 +561,14 @@
             color: var(--text-muted);
         }
 
-        .tarea-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
+        .tarea-meta .vencida {
+            color: var(--accent-red);
+            font-weight: 600;
+        }
+
+        .tarea-meta .hoy {
+            color: var(--accent-blue);
+            font-weight: 500;
         }
 
         .tarea-actions {
@@ -487,28 +583,21 @@
         }
 
         .btn-action {
-            background: #f3f4f6;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            transition: all 0.2s;
+            padding: 0.4rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+            font-size: 1rem;
         }
 
         .btn-action:hover {
-            color: var(--text-primary);
-            border-color: var(--text-muted);
+            background: var(--bg-hover);
         }
 
         .btn-action.eliminar:hover {
-            color: var(--accent-red);
-            border-color: var(--accent-red);
+            background: #fee2e2;
         }
 
         /* Empty State */
@@ -521,298 +610,79 @@
         .empty-state-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            opacity: 0.5;
         }
 
-        /* Vencimiento */
-        .vencida {
-            color: var(--accent-red) !important;
-            font-weight: 600;
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow);
         }
 
-        .hoy {
-            color: var(--accent-yellow) !important;
-            font-weight: 600;
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            .header {
-                padding: 0.75rem 1rem;
-            }
-
+        /* Responsive */
+        @media (max-width: 600px) {
             .header-content {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.5rem;
-            }
-
-            .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-
-            .logo-text {
-                font-size: 1.1rem;
-            }
-
-            .logo-text span {
-                font-size: 0.75rem;
-            }
-
-            .fecha-actual {
-                font-size: 0.8rem;
-            }
-
-            .main-container {
-                padding: 0.75rem;
-                gap: 0.75rem;
-            }
-
-            /* Stats en 2x2 */
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.5rem;
-            }
-
-            .stat-card {
-                padding: 0.75rem;
-                border-radius: 10px;
-            }
-
-            .stat-number {
-                font-size: 1.5rem;
-            }
-
-            .stat-label {
-                font-size: 0.7rem;
-            }
-
-            /* Categorías en vertical */
-            .categorias-card {
-                padding: 0.75rem;
-            }
-
-            .categorias-card .card-title {
-                margin-bottom: 0.5rem;
-            }
-
-            .categorias-wrapper {
-                display: flex;
-                flex-direction: column;
-                gap: 0.25rem;
-            }
-
-            .categoria-btn {
-                padding: 0.6rem 0.75rem;
-                font-size: 0.9rem;
-                border-radius: 8px;
-            }
-
-            .categoria-btn.active {
-                background: var(--accent-blue);
-                color: white;
-                border-left: none;
-            }
-
-            .categoria-btn.active .categoria-count {
-                background: rgba(255,255,255,0.3);
-                color: white;
-            }
-
-            .categoria-dot {
-                width: 10px;
-                height: 10px;
-            }
-
-            .categoria-count {
-                padding: 0.15rem 0.5rem;
-                font-size: 0.75rem;
-            }
-
-            /* Formulario adaptado */
-            .nueva-tarea-card {
-                padding: 1rem;
             }
 
             .form-row {
                 flex-direction: column;
-                gap: 0.6rem;
-            }
-
-            .input-group {
-                min-width: 100%;
             }
 
             .input-group.small {
                 min-width: 100%;
             }
 
-            .input-group label {
-                font-size: 0.7rem;
-                margin-bottom: 0.3rem;
-            }
-
-            .input-group input,
-            .input-group select,
-            .input-group textarea {
-                padding: 0.75rem;
-                font-size: 16px; /* Evita zoom en iOS */
-                border-radius: 10px;
-            }
-
-            .btn-agregar {
-                width: 100%;
-                padding: 0.9rem;
-                font-size: 1rem;
-                border-radius: 10px;
-                margin-top: 0.5rem;
-            }
-
-            /* Filtros en wrap vertical */
             .filtros-bar {
-                flex-wrap: wrap;
-                gap: 0.4rem;
-            }
-
-            .filtro-btn {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.8rem;
+                flex-direction: column;
+                align-items: stretch;
             }
 
             .buscar-input {
                 width: 100%;
                 margin-left: 0;
-                margin-top: 0.5rem;
-                font-size: 16px;
-            }
-
-            /* Tareas adaptadas */
-            .tareas-list {
-                gap: 0.6rem;
-            }
-
-            .tarea-card {
-                padding: 0.9rem;
-                border-radius: 12px;
-                flex-direction: row;
-                gap: 0.75rem;
-            }
-
-            .tarea-checkbox {
-                width: 28px;
-                height: 28px;
-                border-radius: 8px;
-                flex-shrink: 0;
-            }
-
-            .tarea-content {
-                flex: 1;
-                min-width: 0;
-            }
-
-            .tarea-header {
-                flex-wrap: wrap;
-                gap: 0.4rem;
-            }
-
-            .tarea-titulo {
-                font-size: 0.95rem;
-                width: 100%;
-            }
-
-            .tarea-categoria,
-            .tarea-prioridad {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.4rem;
-            }
-
-            .tarea-descripcion {
-                font-size: 0.8rem;
-            }
-
-            .tarea-meta {
-                font-size: 0.75rem;
             }
 
             .tarea-actions {
                 opacity: 1;
-                flex-shrink: 0;
-                align-self: center;
             }
-
-            .btn-action {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-
-            /* Empty state */
-            .empty-state {
-                padding: 2rem 1rem;
-            }
-
-            .empty-state-icon {
-                font-size: 2.5rem;
-            }
-
-            /* Toast */
-            .toast {
-                left: 1rem;
-                right: 1rem;
-                bottom: 1rem;
-                text-align: center;
-            }
-        }
-
-        /* Mejoras táctiles */
-        @media (hover: none) and (pointer: coarse) {
-            .tarea-checkbox:active {
-                transform: scale(0.95);
-            }
-
-            .btn-agregar:active {
-                transform: scale(0.98);
-            }
-
-            .categoria-btn:active,
-            .filtro-btn:active {
-                transform: scale(0.97);
-            }
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--accent-green);
-            color: var(--text-primary);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Conectando con la nube...</div>
+    </div>
+
+    <!-- Sync Status -->
+    <div class="sync-status synced" id="syncStatus">
+        <div class="sync-dot"></div>
+        <span id="syncText">Sincronizado</span>
+    </div>
+
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <div class="logo-icon">📋</div>
+                <div class="logo-icon">☁️</div>
                 <div class="logo-text">
                     Gestor de Tareas
-                    <span>Bruzzone Distribuidora</span>
+                    <span>Bruzzone - Cloud</span>
                 </div>
             </div>
             <div class="fecha-actual" id="fechaActual"></div>
@@ -842,48 +712,45 @@
 
             <div class="categorias-card">
                 <div class="card-title">Categorías</div>
-                <div class="categorias-wrapper">
                 <button class="categoria-btn active" data-cat="todas">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Todas
                     <span class="categoria-count" id="countTodas">0</span>
                 </button>
                 <button class="categoria-btn" data-cat="distribuidora">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Distribuidora
                     <span class="categoria-count" id="countDistribuidora">0</span>
                 </button>
                 <button class="categoria-btn" data-cat="ferreteria">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Ferretería
                     <span class="categoria-count" id="countFerreteria">0</span>
                 </button>
                 <button class="categoria-btn" data-cat="desarrollo">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Desarrollo
                     <span class="categoria-count" id="countDesarrollo">0</span>
                 </button>
                 <button class="categoria-btn" data-cat="instagram">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Instagram
                     <span class="categoria-count" id="countInstagram">0</span>
                 </button>
                 <button class="categoria-btn" data-cat="personal">
-                    <span class="categoria-dot"></span>
+                    <div class="categoria-dot"></div>
                     Personal
                     <span class="categoria-count" id="countPersonal">0</span>
                 </button>
-                </div>
             </div>
         </aside>
 
         <section class="content">
             <div class="nueva-tarea-card">
-                <div class="card-title">Nueva Tarea</div>
                 <div class="form-row" style="margin-bottom: 0.75rem;">
                     <div class="input-group">
-                        <label>Título</label>
-                        <input type="text" id="inputTitulo" placeholder="¿Qué tenés que hacer?">
+                        <label>Nueva tarea</label>
+                        <input type="text" id="inputTitulo" placeholder="¿Qué necesitás hacer?">
                     </div>
                     <div class="input-group small">
                         <label>Categoría</label>
@@ -913,7 +780,7 @@
                         <label>Descripción (opcional)</label>
                         <input type="text" id="inputDescripcion" placeholder="Detalles adicionales...">
                     </div>
-                    <button class="btn-agregar" onclick="agregarTarea()">+ Agregar Tarea</button>
+                    <button class="btn-agregar" id="btnAgregar" onclick="agregarTarea()">+ Agregar Tarea</button>
                 </div>
             </div>
 
@@ -933,21 +800,65 @@
 
     <div class="toast" id="toast"></div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
     <script>
-        // Estado de la aplicación
-        let tareas = JSON.parse(localStorage.getItem('tareasGestor') || '[]');
+        // ============================================
+        // CONFIGURACIÓN DE FIREBASE
+        // ============================================
+        // ⚠️ IMPORTANTE: Reemplazá estos valores con los de tu proyecto Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAxm-_DnPkEPUfSXUioHGJ5x70CSSFGWRw",
+            authDomain: "sistema-de-tareas-43f7b.firebaseapp.com",
+            projectId: "sistema-de-tareas-43f7b",
+            storageBucket: "sistema-de-tareas-43f7b.firebasestorage.app",
+            messagingSenderId: "202618713466",
+            appId: "1:202618713466:web:7a4b89bced6a7b33cf92c3"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+
+        // ============================================
+        // ESTADO DE LA APLICACIÓN
+        // ============================================
+        let tareas = [];
         let categoriaActiva = 'todas';
         let filtroActivo = 'todas';
         let busqueda = '';
+        let userId = null;
+        let unsubscribe = null;
 
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', () => {
+        // ============================================
+        // INICIALIZACIÓN
+        // ============================================
+        document.addEventListener('DOMContentLoaded', async () => {
             actualizarFecha();
-            renderizarTareas();
-            actualizarEstadisticas();
-            actualizarContadores();
+            setupEventListeners();
+            document.getElementById('inputFecha').min = new Date().toISOString().split('T')[0];
+            
+            // Autenticación anónima para identificar al usuario
+            try {
+                const userCredential = await auth.signInAnonymously();
+                userId = userCredential.user.uid;
+                console.log('Usuario autenticado:', userId);
+                
+                // Escuchar cambios en tiempo real
+                escucharCambios();
+            } catch (error) {
+                console.error('Error de autenticación:', error);
+                mostrarToast('❌ Error al conectar con la nube');
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                setSyncStatus('error', 'Error de conexión');
+            }
+        });
 
-            // Event listeners
+        function setupEventListeners() {
             document.querySelectorAll('.categoria-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     document.querySelectorAll('.categoria-btn').forEach(b => b.classList.remove('active'));
@@ -974,81 +885,120 @@
             document.getElementById('inputTitulo').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') agregarTarea();
             });
-
-            // Establecer fecha mínima como hoy
-            document.getElementById('inputFecha').min = new Date().toISOString().split('T')[0];
-        });
-
-        function actualizarFecha() {
-            const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const fecha = new Date().toLocaleDateString('es-AR', opciones);
-            document.getElementById('fechaActual').textContent = fecha.charAt(0).toUpperCase() + fecha.slice(1);
         }
 
-        function agregarTarea() {
+        // ============================================
+        // FIREBASE - TIEMPO REAL
+        // ============================================
+        function escucharCambios() {
+            if (unsubscribe) unsubscribe();
+
+            unsubscribe = db.collection('usuarios').doc(userId).collection('tareas')
+                .orderBy('fechaCreacion', 'desc')
+                .onSnapshot((snapshot) => {
+                    tareas = [];
+                    snapshot.forEach(doc => {
+                        tareas.push({ id: doc.id, ...doc.data() });
+                    });
+                    
+                    renderizarTareas();
+                    actualizarEstadisticas();
+                    actualizarContadores();
+                    
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                    setSyncStatus('synced', 'Sincronizado');
+                    
+                }, (error) => {
+                    console.error('Error escuchando cambios:', error);
+                    setSyncStatus('error', 'Error de sincronización');
+                });
+        }
+
+        // ============================================
+        // CRUD DE TAREAS
+        // ============================================
+        async function agregarTarea() {
             const titulo = document.getElementById('inputTitulo').value.trim();
             if (!titulo) {
                 mostrarToast('⚠️ Ingresá un título para la tarea');
                 return;
             }
 
+            const btn = document.getElementById('btnAgregar');
+            btn.disabled = true;
+            setSyncStatus('syncing', 'Guardando...');
+
             const tarea = {
-                id: Date.now(),
                 titulo,
                 descripcion: document.getElementById('inputDescripcion').value.trim(),
                 categoria: document.getElementById('inputCategoria').value,
                 prioridad: document.getElementById('inputPrioridad').value,
                 fecha: document.getElementById('inputFecha').value,
                 completada: false,
-                fechaCreacion: new Date().toISOString()
+                fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
             };
 
-            tareas.unshift(tarea);
-            guardarTareas();
-            renderizarTareas();
-            actualizarEstadisticas();
-            actualizarContadores();
-
-            // Limpiar formulario
-            document.getElementById('inputTitulo').value = '';
-            document.getElementById('inputDescripcion').value = '';
-            document.getElementById('inputFecha').value = '';
-
-            mostrarToast('✅ Tarea agregada');
+            try {
+                await db.collection('usuarios').doc(userId).collection('tareas').add(tarea);
+                
+                // Limpiar formulario
+                document.getElementById('inputTitulo').value = '';
+                document.getElementById('inputDescripcion').value = '';
+                document.getElementById('inputFecha').value = '';
+                
+                mostrarToast('✅ Tarea agregada y sincronizada');
+            } catch (error) {
+                console.error('Error agregando tarea:', error);
+                mostrarToast('❌ Error al guardar la tarea');
+                setSyncStatus('error', 'Error al guardar');
+            } finally {
+                btn.disabled = false;
+            }
         }
 
-        function toggleCompletada(id) {
+        async function toggleCompletada(id) {
+            setSyncStatus('syncing', 'Sincronizando...');
+            
             const tarea = tareas.find(t => t.id === id);
             if (tarea) {
-                tarea.completada = !tarea.completada;
-                guardarTareas();
-                renderizarTareas();
-                actualizarEstadisticas();
-                actualizarContadores();
-                mostrarToast(tarea.completada ? '🎉 ¡Tarea completada!' : '↩️ Tarea reabierta');
+                try {
+                    await db.collection('usuarios').doc(userId).collection('tareas').doc(id).update({
+                        completada: !tarea.completada
+                    });
+                    mostrarToast(tarea.completada ? '↩️ Tarea reabierta' : '🎉 ¡Tarea completada!');
+                } catch (error) {
+                    console.error('Error actualizando tarea:', error);
+                    mostrarToast('❌ Error al actualizar');
+                    setSyncStatus('error', 'Error');
+                }
             }
         }
 
-        function eliminarTarea(id) {
+        async function eliminarTarea(id) {
             if (confirm('¿Eliminar esta tarea?')) {
-                tareas = tareas.filter(t => t.id !== id);
-                guardarTareas();
-                renderizarTareas();
-                actualizarEstadisticas();
-                actualizarContadores();
-                mostrarToast('🗑️ Tarea eliminada');
+                setSyncStatus('syncing', 'Eliminando...');
+                
+                try {
+                    await db.collection('usuarios').doc(userId).collection('tareas').doc(id).delete();
+                    mostrarToast('🗑️ Tarea eliminada');
+                } catch (error) {
+                    console.error('Error eliminando tarea:', error);
+                    mostrarToast('❌ Error al eliminar');
+                    setSyncStatus('error', 'Error');
+                }
             }
         }
 
+        // ============================================
+        // FILTROS Y RENDERIZADO
+        // ============================================
         function filtrarTareas() {
             let resultado = [...tareas];
 
-            // Filtrar por categoría
             if (categoriaActiva !== 'todas') {
                 resultado = resultado.filter(t => t.categoria === categoriaActiva);
             }
 
-            // Filtrar por estado
             if (filtroActivo === 'pendientes') {
                 resultado = resultado.filter(t => !t.completada);
             } else if (filtroActivo === 'completadas') {
@@ -1058,15 +1008,13 @@
                 resultado = resultado.filter(t => t.fecha === hoy);
             }
 
-            // Filtrar por búsqueda
             if (busqueda) {
                 resultado = resultado.filter(t => 
                     t.titulo.toLowerCase().includes(busqueda) ||
-                    t.descripcion.toLowerCase().includes(busqueda)
+                    (t.descripcion && t.descripcion.toLowerCase().includes(busqueda))
                 );
             }
 
-            // Ordenar: primero por prioridad, luego por fecha
             const prioridadOrden = { alta: 0, media: 1, baja: 2 };
             resultado.sort((a, b) => {
                 if (a.completada !== b.completada) return a.completada ? 1 : -1;
@@ -1097,24 +1045,23 @@
             }
 
             const hoy = new Date().toISOString().split('T')[0];
+            const categoriaLabel = {
+                distribuidora: 'Distribuidora',
+                ferreteria: 'Ferretería',
+                desarrollo: 'Desarrollo',
+                instagram: 'Instagram',
+                personal: 'Personal'
+            };
+            const prioridadLabel = {
+                alta: '🔴 Alta',
+                media: '🟡 Media',
+                baja: '🟢 Baja'
+            };
 
             container.innerHTML = tareasFiltradas.map(tarea => {
-                const categoriaLabel = {
-                    distribuidora: 'Distribuidora',
-                    ferreteria: 'Ferretería',
-                    desarrollo: 'Desarrollo',
-                    instagram: 'Instagram',
-                    personal: 'Personal'
-                };
-
-                const prioridadLabel = {
-                    alta: '🔴 Alta',
-                    media: '🟡 Media',
-                    baja: '🟢 Baja'
-                };
-
                 let fechaClase = '';
                 let fechaTexto = '';
+                
                 if (tarea.fecha) {
                     const fechaTarea = new Date(tarea.fecha + 'T00:00:00');
                     const hoyDate = new Date(hoy + 'T00:00:00');
@@ -1132,7 +1079,7 @@
 
                 return `
                     <div class="tarea-card ${tarea.completada ? 'completada' : ''}">
-                        <div class="tarea-checkbox ${tarea.completada ? 'checked' : ''}" onclick="toggleCompletada(${tarea.id})"></div>
+                        <div class="tarea-checkbox ${tarea.completada ? 'checked' : ''}" onclick="toggleCompletada('${tarea.id}')"></div>
                         <div class="tarea-content">
                             <div class="tarea-header">
                                 <span class="tarea-titulo">${tarea.titulo}</span>
@@ -1145,13 +1092,16 @@
                             </div>
                         </div>
                         <div class="tarea-actions">
-                            <button class="btn-action eliminar" onclick="eliminarTarea(${tarea.id})" title="Eliminar">🗑️</button>
+                            <button class="btn-action eliminar" onclick="eliminarTarea('${tarea.id}')" title="Eliminar">🗑️</button>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
+        // ============================================
+        // ESTADÍSTICAS
+        // ============================================
         function actualizarEstadisticas() {
             const pendientes = tareas.filter(t => !t.completada).length;
             const urgentes = tareas.filter(t => !t.completada && t.prioridad === 'alta').length;
@@ -1174,8 +1124,20 @@
             document.getElementById('countPersonal').textContent = pendientes.filter(t => t.categoria === 'personal').length;
         }
 
-        function guardarTareas() {
-            localStorage.setItem('tareasGestor', JSON.stringify(tareas));
+        // ============================================
+        // UTILIDADES
+        // ============================================
+        function actualizarFecha() {
+            const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const fecha = new Date().toLocaleDateString('es-AR', opciones);
+            document.getElementById('fechaActual').textContent = fecha.charAt(0).toUpperCase() + fecha.slice(1);
+        }
+
+        function setSyncStatus(status, text) {
+            const el = document.getElementById('syncStatus');
+            const textEl = document.getElementById('syncText');
+            el.className = 'sync-status ' + status;
+            textEl.textContent = text;
         }
 
         function mostrarToast(mensaje) {
