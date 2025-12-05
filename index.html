@@ -190,13 +190,58 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 1.5rem;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.5rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Vista Lista (Original) */
+        .lista-container {
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 1.5rem;
         }
 
         @media (max-width: 900px) {
-            .main-container {
+            .lista-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -223,275 +268,214 @@
         }
 
         .stat-number {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
-            font-family: 'Space Mono', monospace;
+            color: var(--accent-blue);
+            display: block;
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
         }
 
-        .stat-card.pendientes .stat-number { color: var(--accent-yellow); }
-        .stat-card.urgentes .stat-number { color: var(--accent-red); }
-        .stat-card.completadas .stat-number { color: var(--accent-green); }
-        .stat-card.total .stat-number { color: var(--accent-blue); }
-
-        /* Categorías */
-        .categorias-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-        }
-
-        .card-title {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.75rem;
-        }
-
-        .categoria-btn {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.95rem;
-            transition: all 0.2s;
-            margin-bottom: 0.25rem;
-        }
-
-        .categoria-btn:hover {
-            background: var(--bg-hover);
-        }
-
-        .categoria-btn.active {
-            background: var(--bg-hover);
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .categoria-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .categoria-btn[data-cat="todas"] .categoria-dot { background: var(--accent-blue); }
-        .categoria-btn[data-cat="distribuidora"] .categoria-dot { background: #f97316; }
-        .categoria-btn[data-cat="ferreteria"] .categoria-dot { background: #06b6d4; }
-        .categoria-btn[data-cat="desarrollo"] .categoria-dot { background: var(--accent-purple); }
-        .categoria-btn[data-cat="instagram"] .categoria-dot { background: #ec4899; }
-        .categoria-btn[data-cat="personal"] .categoria-dot { background: var(--accent-green); }
-
-        .categoria-count {
-            margin-left: auto;
-            background: #e5e7eb;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Space Mono', monospace;
-            color: var(--text-secondary);
-        }
-
-        /* Main Content */
-        .content {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        /* Nueva Tarea Form */
-        .nueva-tarea-card {
+        .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 1.25rem;
         }
 
-        .form-row {
-            display: flex;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .input-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .input-group.small {
-            flex: 0 0 auto;
-            min-width: 140px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.75rem;
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 0.4rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .input-group input,
-        .input-group select,
-        .input-group textarea {
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
             width: 100%;
-            background: var(--bg-primary);
+            padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 0.7rem 1rem;
-            color: var(--text-primary);
-            font-size: 0.95rem;
             font-family: inherit;
-            transition: border-color 0.2s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
         }
 
-        .input-group input:focus,
-        .input-group select:focus,
-        .input-group textarea:focus {
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
             outline: none;
             border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .input-group textarea {
+        .form-textarea {
+            min-height: 80px;
             resize: vertical;
-            min-height: 60px;
         }
 
-        .btn-agregar {
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
             border: none;
-            color: white;
-            padding: 0.7rem 1.5rem;
             border-radius: 8px;
             font-weight: 600;
-            cursor: pointer;
             font-size: 0.95rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            align-self: flex-end;
-            white-space: nowrap;
-        }
-
-        .btn-agregar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(74, 158, 255, 0.3);
-        }
-
-        .btn-agregar:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Filtros */
-        .filtros-bar {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .filtro-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
-        .filtro-btn:hover,
-        .filtro-btn.active {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-            border-color: var(--accent-blue);
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
         }
 
-        .buscar-input {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            width: 200px;
-            margin-left: auto;
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .buscar-input:focus {
-            outline: none;
-            border-color: var(--accent-blue);
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        /* Lista de Tareas */
-        .tareas-list {
+        .categorias-list {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .tarea-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
+        .categoria-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: all 0.2s;
-            animation: slideIn 0.3s ease;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .categoria-item:hover {
+            background: var(--bg-hover);
         }
 
-        .tarea-card:hover {
-            border-color: var(--text-muted);
+        .categoria-item.active {
+            background: var(--accent-blue);
+            color: white;
         }
 
-        .tarea-card.completada {
-            opacity: 0.5;
+        .categoria-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        .tarea-card.completada .tarea-titulo {
-            text-decoration: line-through;
+        .categoria-item:not(.active) .categoria-badge {
+            background: var(--bg-hover);
             color: var(--text-secondary);
         }
 
+        /* Filtros */
+        .filtros {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filtro-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filtro-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .filtro-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .buscar-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .buscar-input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Tareas Cards */
+        .tareas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .tarea-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: all 0.3s;
+        }
+
+        .tarea-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .tarea-card.completada {
+            opacity: 0.6;
+        }
+
         .tarea-checkbox {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border: 2px solid var(--border-color);
             border-radius: 6px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             flex-shrink: 0;
-            transition: all 0.2s;
-            margin-top: 2px;
+            transition: all 0.3s;
         }
 
         .tarea-checkbox:hover {
@@ -501,18 +485,21 @@
         .tarea-checkbox.checked {
             background: var(--accent-green);
             border-color: var(--accent-green);
+            position: relative;
         }
 
         .tarea-checkbox.checked::after {
             content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white;
-            font-size: 0.8rem;
             font-weight: 700;
         }
 
         .tarea-content {
             flex: 1;
-            min-width: 0;
         }
 
         .tarea-header {
@@ -520,44 +507,45 @@
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .tarea-titulo {
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
-        .tarea-categoria {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .tarea-card.completada .tarea-titulo {
+            text-decoration: line-through;
         }
 
-        .tarea-categoria.distribuidora { background: #fed7aa; color: #c2410c; }
-        .tarea-categoria.ferreteria { background: #a5f3fc; color: #0e7490; }
-        .tarea-categoria.desarrollo { background: #ddd6fe; color: #6d28d9; }
-        .tarea-categoria.instagram { background: #fbcfe8; color: #be185d; }
-        .tarea-categoria.personal { background: #bbf7d0; color: #15803d; }
-
-        .tarea-prioridad {
+        .tarea-categoria, .tarea-prioridad {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            font-weight: 600;
         }
+
+        .tarea-categoria.distribuidora { background: #dbeafe; color: #1e40af; }
+        .tarea-categoria.ferreteria { background: #fef3c7; color: #92400e; }
+        .tarea-categoria.desarrollo { background: #ddd6fe; color: #5b21b6; }
+        .tarea-categoria.instagram { background: #fce7f3; color: #9f1239; }
+        .tarea-categoria.personal { background: #d1fae5; color: #065f46; }
+
+        .tarea-prioridad.alta { background: #fee2e2; color: #991b1b; }
+        .tarea-prioridad.media { background: #fef3c7; color: #92400e; }
+        .tarea-prioridad.baja { background: #d1fae5; color: #065f46; }
 
         .tarea-descripcion {
-            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin: 0.4rem 0;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
         }
 
         .tarea-meta {
             display: flex;
             gap: 1rem;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
@@ -568,356 +556,630 @@
 
         .tarea-meta .hoy {
             color: var(--accent-blue);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .tarea-actions {
             display: flex;
             gap: 0.5rem;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .tarea-card:hover .tarea-actions {
-            opacity: 1;
         }
 
         .btn-action {
-            background: transparent;
-            border: none;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 8px;
             cursor: pointer;
-            padding: 0.4rem;
-            border-radius: 6px;
-            transition: background 0.2s;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
         }
 
         .btn-action:hover {
             background: var(--bg-hover);
+            transform: scale(1.1);
         }
 
         .btn-action.eliminar:hover {
             background: #fee2e2;
+            border-color: var(--accent-red);
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 3rem;
-            color: var(--text-secondary);
+            padding: 4rem 2rem;
+            color: var(--text-muted);
         }
 
         .empty-state-icon {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
+        }
+
+        /* CRONOGRAMA */
+        .cronograma-controls {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .cronograma-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .cronograma-fecha {
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .btn-hoy {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--accent-blue);
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-hoy:hover {
+            background: #1d4ed8;
+        }
+
+        .vista-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .vista-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .vista-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .vista-btn.active {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        /* Vista Semanal */
+        .calendario-semanal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .calendario-header {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .calendario-header-cell {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .calendario-header-cell:last-child {
+            border-right: none;
+        }
+
+        .calendario-header-cell.hoy {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .calendario-dia-nombre {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendario-dia-numero {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .calendario-body {
+            display: grid;
+            grid-template-columns: 80px repeat(7, 1fr);
+        }
+
+        .calendario-horas {
+            border-right: 1px solid var(--border-color);
+        }
+
+        .hora-cell {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .calendario-columna {
+            position: relative;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .calendario-columna:last-child {
+            border-right: none;
+        }
+
+        .hora-slot {
+            height: 60px;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .evento {
+            position: absolute;
+            left: 2px;
+            right: 2px;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .evento:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .evento.distribuidora { background: #2563eb; }
+        .evento.ferreteria { background: #ca8a04; }
+        .evento.desarrollo { background: #7c3aed; }
+        .evento.instagram { background: #db2777; }
+        .evento.personal { background: #16a34a; }
+
+        .evento-titulo {
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .evento-hora {
+            font-size: 0.65rem;
+            opacity: 0.9;
+        }
+
+        /* Vista Diaria */
+        .calendario-diario {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .calendario-diario-header {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .calendario-diario-body {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+        }
+
+        .evento-diario {
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .evento-diario:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .evento-diario.distribuidora { background: #2563eb; }
+        .evento-diario.ferreteria { background: #ca8a04; }
+        .evento-diario.desarrollo { background: #7c3aed; }
+        .evento-diario.instagram { background: #db2777; }
+        .evento-diario.personal { background: #16a34a; }
+
+        .evento-diario-titulo {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .evento-diario-descripcion {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 0.25rem;
+        }
+
+        .evento-diario-meta {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            display: flex;
+            gap: 0.75rem;
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
+            bottom: 5rem;
+            right: 1rem;
             background: var(--text-primary);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 1.5rem;
             border-radius: 8px;
-            font-size: 0.9rem;
-            z-index: 1000;
-            transition: transform 0.3s ease;
             box-shadow: var(--shadow);
+            transform: translateY(120px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
         }
 
         .toast.show {
-            transform: translateX(-50%) translateY(0);
+            transform: translateY(0);
+            opacity: 1;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header-content {
-                flex-direction: column;
-                align-items: flex-start;
+        @media (max-width: 900px) {
+            .calendario-header,
+            .calendario-body {
+                grid-template-columns: 60px repeat(7, 1fr);
             }
 
-            .form-row {
-                flex-direction: column;
+            .calendario-diario-header,
+            .calendario-diario-body {
+                grid-template-columns: 60px 1fr;
             }
 
-            .input-group.small {
-                min-width: 100%;
+            .hora-cell {
+                font-size: 0.7rem;
+                padding: 0.25rem;
             }
 
-            .filtros-bar {
-                flex-direction: column;
-                align-items: stretch;
+            .evento-titulo {
+                font-size: 0.7rem;
             }
 
-            .buscar-input {
-                width: 100%;
-                margin-left: 0;
-            }
-
-            .tarea-actions {
-                opacity: 1;
+            .evento-hora {
+                font-size: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
+    <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-spinner"></div>
-        <div class="loading-text">Conectando con la nube...</div>
+        <p class="loading-text">Cargando datos...</p>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                <div class="logo-text">
+                    Bruzzone
+                    <span>Gestor de Tareas</span>
+                </div>
+            </div>
+            <div id="fechaActual" class="fecha-actual"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Navegación de Tabs -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" onclick="cambiarTab('lista')">📋 Lista de Tareas</button>
+            <button class="tab-btn" onclick="cambiarTab('cronograma')">📅 Cronograma</button>
+        </div>
+
+        <!-- TAB: Lista de Tareas -->
+        <div id="tabLista" class="tab-content active">
+            <div class="lista-container">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Estadísticas -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span id="statPendientes" class="stat-number">0</span>
+                            <span class="stat-label">Pendientes</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="statUrgentes" class="stat-number">0</span>
+                            <span class="stat-label">Urgentes</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="statCompletadas" class="stat-number">0</span>
+                            <span class="stat-label">Completadas</span>
+                        </div>
+                        <div class="stat-card">
+                            <span id="statTotal" class="stat-number">0</span>
+                            <span class="stat-label">Total</span>
+                        </div>
+                    </div>
+
+                    <!-- Nueva Tarea -->
+                    <div class="card">
+                        <h3 class="card-title">Nueva Tarea</h3>
+                        <form id="formTarea" onsubmit="event.preventDefault(); agregarTarea();">
+                            <div class="form-group">
+                                <label class="form-label">Título</label>
+                                <input id="inputTitulo" type="text" class="form-input" placeholder="¿Qué hay que hacer?" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <textarea id="inputDescripcion" class="form-textarea" placeholder="Detalles..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Categoría</label>
+                                <select id="inputCategoria" class="form-select">
+                                    <option value="distribuidora">🏢 Distribuidora</option>
+                                    <option value="ferreteria">🔧 Ferretería</option>
+                                    <option value="desarrollo">💻 Desarrollo</option>
+                                    <option value="instagram">📱 Instagram</option>
+                                    <option value="personal">👤 Personal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prioridad</label>
+                                <select id="inputPrioridad" class="form-select">
+                                    <option value="alta">🔴 Alta</option>
+                                    <option value="media">🟡 Media</option>
+                                    <option value="baja">🟢 Baja</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Fecha</label>
+                                <input id="inputFecha" type="date" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Horario</label>
+                                <div class="time-inputs">
+                                    <input id="inputHoraInicio" type="time" class="form-input" placeholder="Inicio">
+                                    <input id="inputHoraFin" type="time" class="form-input" placeholder="Fin">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">➕ Agregar Tarea</button>
+                        </form>
+                    </div>
+
+                    <!-- Categorías -->
+                    <div class="card">
+                        <h3 class="card-title">Categorías</h3>
+                        <div class="categorias-list">
+                            <div class="categoria-item active" onclick="filtrarPorCategoria('todas')">
+                                <span>📂 Todas</span>
+                                <span id="countTodas" class="categoria-badge">0</span>
+                            </div>
+                            <div class="categoria-item" onclick="filtrarPorCategoria('distribuidora')">
+                                <span>🏢 Distribuidora</span>
+                                <span id="countDistribuidora" class="categoria-badge">0</span>
+                            </div>
+                            <div class="categoria-item" onclick="filtrarPorCategoria('ferreteria')">
+                                <span>🔧 Ferretería</span>
+                                <span id="countFerreteria" class="categoria-badge">0</span>
+                            </div>
+                            <div class="categoria-item" onclick="filtrarPorCategoria('desarrollo')">
+                                <span>💻 Desarrollo</span>
+                                <span id="countDesarrollo" class="categoria-badge">0</span>
+                            </div>
+                            <div class="categoria-item" onclick="filtrarPorCategoria('instagram')">
+                                <span>📱 Instagram</span>
+                                <span id="countInstagram" class="categoria-badge">0</span>
+                            </div>
+                            <div class="categoria-item" onclick="filtrarPorCategoria('personal')">
+                                <span>👤 Personal</span>
+                                <span id="countPersonal" class="categoria-badge">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido Principal -->
+                <div>
+                    <!-- Filtros -->
+                    <div class="filtros">
+                        <button class="filtro-btn active" onclick="aplicarFiltro('todas')">Todas</button>
+                        <button class="filtro-btn" onclick="aplicarFiltro('pendientes')">Pendientes</button>
+                        <button class="filtro-btn" onclick="aplicarFiltro('completadas')">Completadas</button>
+                        <button class="filtro-btn" onclick="aplicarFiltro('hoy')">Hoy</button>
+                        <div class="buscar-container">
+                            <input id="inputBuscar" type="text" class="buscar-input" placeholder="🔍 Buscar tareas..." oninput="buscarTareas(this.value)">
+                        </div>
+                    </div>
+
+                    <!-- Lista de Tareas -->
+                    <div id="tareasList" class="tareas-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Cronograma -->
+        <div id="tabCronograma" class="tab-content">
+            <!-- Controles del Cronograma -->
+            <div class="cronograma-controls">
+                <div class="cronograma-nav">
+                    <button class="nav-btn" onclick="navegarCronograma(-1)">◀</button>
+                    <div id="cronogramaFecha" class="cronograma-fecha"></div>
+                    <button class="nav-btn" onclick="navegarCronograma(1)">▶</button>
+                </div>
+                <button class="btn-hoy" onclick="irAHoy()">Hoy</button>
+                <div class="vista-toggle">
+                    <button class="vista-btn active" onclick="cambiarVistaCronograma('semanal')">Semana</button>
+                    <button class="vista-btn" onclick="cambiarVistaCronograma('diario')">Día</button>
+                </div>
+            </div>
+
+            <!-- Vista Semanal -->
+            <div id="vistaSemanal" class="calendario-semanal"></div>
+
+            <!-- Vista Diaria -->
+            <div id="vistaDiaria" class="calendario-diario" style="display: none;"></div>
+        </div>
     </div>
 
     <!-- Sync Status -->
-    <div class="sync-status synced" id="syncStatus">
+    <div id="syncStatus" class="sync-status synced">
         <div class="sync-dot"></div>
         <span id="syncText">Sincronizado</span>
     </div>
 
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">☁️</div>
-                <div class="logo-text">
-                    Gestor de Tareas
-                    <span>Bruzzone - Cloud</span>
-                </div>
-            </div>
-            <div class="fecha-actual" id="fechaActual"></div>
-        </div>
-    </header>
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
 
-    <main class="main-container">
-        <aside class="sidebar">
-            <div class="stats-grid">
-                <div class="stat-card pendientes">
-                    <div class="stat-number" id="statPendientes">0</div>
-                    <div class="stat-label">Pendientes</div>
-                </div>
-                <div class="stat-card urgentes">
-                    <div class="stat-number" id="statUrgentes">0</div>
-                    <div class="stat-label">Urgentes</div>
-                </div>
-                <div class="stat-card completadas">
-                    <div class="stat-number" id="statCompletadas">0</div>
-                    <div class="stat-label">Completadas</div>
-                </div>
-                <div class="stat-card total">
-                    <div class="stat-number" id="statTotal">0</div>
-                    <div class="stat-label">Total</div>
-                </div>
-            </div>
-
-            <div class="categorias-card">
-                <div class="card-title">Categorías</div>
-                <button class="categoria-btn active" data-cat="todas">
-                    <div class="categoria-dot"></div>
-                    Todas
-                    <span class="categoria-count" id="countTodas">0</span>
-                </button>
-                <button class="categoria-btn" data-cat="distribuidora">
-                    <div class="categoria-dot"></div>
-                    Distribuidora
-                    <span class="categoria-count" id="countDistribuidora">0</span>
-                </button>
-                <button class="categoria-btn" data-cat="ferreteria">
-                    <div class="categoria-dot"></div>
-                    Ferretería
-                    <span class="categoria-count" id="countFerreteria">0</span>
-                </button>
-                <button class="categoria-btn" data-cat="desarrollo">
-                    <div class="categoria-dot"></div>
-                    Desarrollo
-                    <span class="categoria-count" id="countDesarrollo">0</span>
-                </button>
-                <button class="categoria-btn" data-cat="instagram">
-                    <div class="categoria-dot"></div>
-                    Instagram
-                    <span class="categoria-count" id="countInstagram">0</span>
-                </button>
-                <button class="categoria-btn" data-cat="personal">
-                    <div class="categoria-dot"></div>
-                    Personal
-                    <span class="categoria-count" id="countPersonal">0</span>
-                </button>
-            </div>
-        </aside>
-
-        <section class="content">
-            <div class="nueva-tarea-card">
-                <div class="form-row" style="margin-bottom: 0.75rem;">
-                    <div class="input-group">
-                        <label>Nueva tarea</label>
-                        <input type="text" id="inputTitulo" placeholder="¿Qué necesitás hacer?">
-                    </div>
-                    <div class="input-group small">
-                        <label>Categoría</label>
-                        <select id="inputCategoria">
-                            <option value="distribuidora">Distribuidora</option>
-                            <option value="ferreteria">Ferretería</option>
-                            <option value="desarrollo">Desarrollo</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="personal">Personal</option>
-                        </select>
-                    </div>
-                    <div class="input-group small">
-                        <label>Prioridad</label>
-                        <select id="inputPrioridad">
-                            <option value="media">Media</option>
-                            <option value="alta">Alta</option>
-                            <option value="baja">Baja</option>
-                        </select>
-                    </div>
-                    <div class="input-group small">
-                        <label>Fecha límite</label>
-                        <input type="date" id="inputFecha">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label>Descripción (opcional)</label>
-                        <input type="text" id="inputDescripcion" placeholder="Detalles adicionales...">
-                    </div>
-                    <button class="btn-agregar" id="btnAgregar" onclick="agregarTarea()">+ Agregar Tarea</button>
-                </div>
-            </div>
-
-            <div class="filtros-bar">
-                <button class="filtro-btn active" data-filtro="todas">Todas</button>
-                <button class="filtro-btn" data-filtro="pendientes">Pendientes</button>
-                <button class="filtro-btn" data-filtro="completadas">Completadas</button>
-                <button class="filtro-btn" data-filtro="hoy">Para Hoy</button>
-                <input type="text" class="buscar-input" id="buscarInput" placeholder="🔍 Buscar tarea...">
-            </div>
-
-            <div class="tareas-list" id="tareasList">
-                <!-- Las tareas se renderizan aquí -->
-            </div>
-        </section>
-    </main>
-
-    <div class="toast" id="toast"></div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
         // ============================================
-        // CONFIGURACIÓN DE FIREBASE
+        // CONFIGURACIÓN FIREBASE
         // ============================================
-        // ⚠️ IMPORTANTE: Reemplazá estos valores con los de tu proyecto Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyAxm-_DnPkEPUfSXUioHGJ5x70CSSFGWRw",
-            authDomain: "sistema-de-tareas-43f7b.firebaseapp.com",
-            projectId: "sistema-de-tareas-43f7b",
-            storageBucket: "sistema-de-tareas-43f7b.firebasestorage.app",
-            messagingSenderId: "202618713466",
-            appId: "1:202618713466:web:7a4b89bced6a7b33cf92c3"
+            apiKey: "AIzaSyA9x2C50mMRx5aWY5IfvUlZM97OApwm-IM",
+            authDomain: "ferrecloud-8c3b4.firebaseapp.com",
+            projectId: "ferrecloud-8c3b4",
+            storageBucket: "ferrecloud-8c3b4.appspot.com",
+            messagingSenderId: "785332165664",
+            appId: "1:785332165664:web:47f7e77c82e2e7efb3a8c8"
         };
 
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         // ============================================
-        // ESTADO DE LA APLICACIÓN
+        // VARIABLES GLOBALES
         // ============================================
         let tareas = [];
         let categoriaActiva = 'todas';
         let filtroActivo = 'todas';
         let busqueda = '';
-        let unsubscribe = null;
+        let tabActual = 'lista';
+        let vistaCronograma = 'semanal';
+        let fechaCronograma = new Date();
 
         // ============================================
         // INICIALIZACIÓN
         // ============================================
-        document.addEventListener('DOMContentLoaded', async () => {
+        window.addEventListener('DOMContentLoaded', () => {
             actualizarFecha();
-            setupEventListeners();
-            document.getElementById('inputFecha').min = new Date().toISOString().split('T')[0];
-            
-            // Conectar directamente sin autenticación
-            try {
-                escucharCambios();
-            } catch (error) {
-                console.error('Error de conexión:', error);
-                mostrarToast('❌ Error al conectar con la nube');
-                document.getElementById('loadingOverlay').classList.add('hidden');
-                setSyncStatus('error', 'Error de conexión');
-            }
+            cargarTareas();
         });
 
-        function setupEventListeners() {
-            document.querySelectorAll('.categoria-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.categoria-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    categoriaActiva = btn.dataset.cat;
-                    renderizarTareas();
+        function cargarTareas() {
+            db.collection('tareas').onSnapshot(snapshot => {
+                tareas = [];
+                snapshot.forEach(doc => {
+                    tareas.push({ id: doc.id, ...doc.data() });
                 });
-            });
-
-            document.querySelectorAll('.filtro-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    filtroActivo = btn.dataset.filtro;
-                    renderizarTareas();
-                });
-            });
-
-            document.getElementById('buscarInput').addEventListener('input', (e) => {
-                busqueda = e.target.value.toLowerCase();
+                
                 renderizarTareas();
-            });
+                actualizarEstadisticas();
+                actualizarContadores();
+                
+                if (tabActual === 'cronograma') {
+                    renderizarCronograma();
+                }
 
-            document.getElementById('inputTitulo').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') agregarTarea();
-            });
-        }
-
-        // ============================================
-        // FIREBASE - TIEMPO REAL
-        // ============================================
-        function escucharCambios() {
-            if (unsubscribe) unsubscribe();
-
-            unsubscribe = db.collection('tareas')
-                .orderBy('fechaCreacion', 'desc')
-                .onSnapshot((snapshot) => {
-                    tareas = [];
-                    snapshot.forEach(doc => {
-                        tareas.push({ id: doc.id, ...doc.data() });
-                    });
-                    
-                    renderizarTareas();
-                    actualizarEstadisticas();
-                    actualizarContadores();
-                    
+                setSyncStatus('synced', 'Sincronizado');
+                
+                setTimeout(() => {
                     document.getElementById('loadingOverlay').classList.add('hidden');
-                    setSyncStatus('synced', 'Sincronizado');
-                    
-                }, (error) => {
-                    console.error('Error escuchando cambios:', error);
-                    setSyncStatus('error', 'Error de sincronización');
-                });
+                }, 500);
+            }, error => {
+                console.error('Error cargando tareas:', error);
+                setSyncStatus('error', 'Error de conexión');
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            });
         }
 
         // ============================================
-        // CRUD DE TAREAS
+        // GESTIÓN DE TABS
+        // ============================================
+        function cambiarTab(tab) {
+            tabActual = tab;
+            
+            // Actualizar botones
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Mostrar contenido
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+            
+            if (tab === 'cronograma') {
+                renderizarCronograma();
+            }
+        }
+
+        // ============================================
+        // CRUD TAREAS
         // ============================================
         async function agregarTarea() {
             const titulo = document.getElementById('inputTitulo').value.trim();
-            if (!titulo) {
-                mostrarToast('⚠️ Ingresá un título para la tarea');
-                return;
-            }
+            if (!titulo) return;
 
-            const btn = document.getElementById('btnAgregar');
+            const btn = event.target.querySelector('button[type="submit"]');
             btn.disabled = true;
             setSyncStatus('syncing', 'Guardando...');
 
@@ -927,6 +1189,8 @@
                 categoria: document.getElementById('inputCategoria').value,
                 prioridad: document.getElementById('inputPrioridad').value,
                 fecha: document.getElementById('inputFecha').value,
+                horaInicio: document.getElementById('inputHoraInicio').value,
+                horaFin: document.getElementById('inputHoraFin').value,
                 completada: false,
                 fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
             };
@@ -938,6 +1202,8 @@
                 document.getElementById('inputTitulo').value = '';
                 document.getElementById('inputDescripcion').value = '';
                 document.getElementById('inputFecha').value = '';
+                document.getElementById('inputHoraInicio').value = '';
+                document.getElementById('inputHoraFin').value = '';
                 
                 mostrarToast('✅ Tarea agregada y sincronizada');
             } catch (error) {
@@ -983,8 +1249,31 @@
         }
 
         // ============================================
-        // FILTROS Y RENDERIZADO
+        // FILTROS Y RENDERIZADO LISTA
         // ============================================
+        function filtrarPorCategoria(categoria) {
+            categoriaActiva = categoria;
+            
+            document.querySelectorAll('.categoria-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.categoria-item').classList.add('active');
+            
+            renderizarTareas();
+        }
+
+        function aplicarFiltro(filtro) {
+            filtroActivo = filtro;
+            
+            document.querySelectorAll('.filtro-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            renderizarTareas();
+        }
+
+        function buscarTareas(texto) {
+            busqueda = texto.toLowerCase();
+            renderizarTareas();
+        }
+
         function filtrarTareas() {
             let resultado = [...tareas];
 
@@ -1068,6 +1357,13 @@
                     } else {
                         fechaTexto = '📅 ' + fechaTarea.toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit' });
                     }
+
+                    if (tarea.horaInicio) {
+                        fechaTexto += ` ${tarea.horaInicio}`;
+                        if (tarea.horaFin) {
+                            fechaTexto += ` - ${tarea.horaFin}`;
+                        }
+                    }
                 }
 
                 return `
@@ -1090,6 +1386,206 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // ============================================
+        // CRONOGRAMA
+        // ============================================
+        function cambiarVistaCronograma(vista) {
+            vistaCronograma = vista;
+            
+            document.querySelectorAll('.vista-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (vista === 'semanal') {
+                document.getElementById('vistaSemanal').style.display = 'block';
+                document.getElementById('vistaDiaria').style.display = 'none';
+            } else {
+                document.getElementById('vistaSemanal').style.display = 'none';
+                document.getElementById('vistaDiaria').style.display = 'block';
+            }
+            
+            renderizarCronograma();
+        }
+
+        function navegarCronograma(direccion) {
+            if (vistaCronograma === 'semanal') {
+                fechaCronograma.setDate(fechaCronograma.getDate() + (direccion * 7));
+            } else {
+                fechaCronograma.setDate(fechaCronograma.getDate() + direccion);
+            }
+            renderizarCronograma();
+        }
+
+        function irAHoy() {
+            fechaCronograma = new Date();
+            renderizarCronograma();
+        }
+
+        function renderizarCronograma() {
+            if (vistaCronograma === 'semanal') {
+                renderizarSemanal();
+            } else {
+                renderizarDiario();
+            }
+        }
+
+        function renderizarSemanal() {
+            const inicioSemana = new Date(fechaCronograma);
+            inicioSemana.setDate(fechaCronograma.getDate() - fechaCronograma.getDay());
+            
+            // Actualizar título
+            const finSemana = new Date(inicioSemana);
+            finSemana.setDate(inicioSemana.getDate() + 6);
+            document.getElementById('cronogramaFecha').textContent = 
+                `${inicioSemana.toLocaleDateString('es-AR', { day: '2-digit', month: 'short' })} - ${finSemana.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' })}`;
+
+            const container = document.getElementById('vistaSemanal');
+            const hoy = new Date().toISOString().split('T')[0];
+            const dias = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            
+            // Header
+            let headerHTML = '<div class="calendario-header"><div class="calendario-header-cell"></div>';
+            for (let i = 0; i < 7; i++) {
+                const dia = new Date(inicioSemana);
+                dia.setDate(inicioSemana.getDate() + i);
+                const estaHoy = dia.toISOString().split('T')[0] === hoy;
+                
+                headerHTML += `
+                    <div class="calendario-header-cell ${estaHoy ? 'hoy' : ''}">
+                        <div class="calendario-dia-nombre">${dias[dia.getDay()]}</div>
+                        <div class="calendario-dia-numero">${dia.getDate()}</div>
+                    </div>
+                `;
+            }
+            headerHTML += '</div>';
+
+            // Body
+            let bodyHTML = '<div class="calendario-body"><div class="calendario-horas">';
+            
+            // Horas
+            for (let hora = 6; hora <= 23; hora++) {
+                bodyHTML += `<div class="hora-cell">${hora.toString().padStart(2, '0')}:00</div>`;
+            }
+            bodyHTML += '</div>';
+
+            // Columnas de días
+            for (let i = 0; i < 7; i++) {
+                const dia = new Date(inicioSemana);
+                dia.setDate(inicioSemana.getDate() + i);
+                const fechaDia = dia.toISOString().split('T')[0];
+                
+                bodyHTML += '<div class="calendario-columna">';
+                
+                // Slots de horas
+                for (let hora = 6; hora <= 23; hora++) {
+                    bodyHTML += '<div class="hora-slot"></div>';
+                }
+                
+                // Eventos
+                const tareasDia = tareas.filter(t => t.fecha === fechaDia && t.horaInicio && !t.completada);
+                tareasDia.forEach(tarea => {
+                    const [horaInicio, minInicio] = tarea.horaInicio.split(':').map(Number);
+                    const [horaFin, minFin] = tarea.horaFin ? tarea.horaFin.split(':').map(Number) : [horaInicio + 1, minInicio];
+                    
+                    const top = ((horaInicio - 6) * 60 + minInicio) * (60 / 60);
+                    const duracion = ((horaFin - horaInicio) * 60 + (minFin - minInicio));
+                    const height = Math.max(duracion * (60 / 60), 30);
+                    
+                    bodyHTML += `
+                        <div class="evento ${tarea.categoria}" style="top: ${top}px; height: ${height}px;">
+                            <div class="evento-titulo">${tarea.titulo}</div>
+                            <div class="evento-hora">${tarea.horaInicio} - ${tarea.horaFin || ''}</div>
+                        </div>
+                    `;
+                });
+                
+                bodyHTML += '</div>';
+            }
+            bodyHTML += '</div>';
+
+            container.innerHTML = headerHTML + bodyHTML;
+        }
+
+        function renderizarDiario() {
+            const dia = new Date(fechaCronograma);
+            
+            // Actualizar título
+            document.getElementById('cronogramaFecha').textContent = 
+                dia.toLocaleDateString('es-AR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
+
+            const container = document.getElementById('vistaDiaria');
+            const fechaDia = dia.toISOString().split('T')[0];
+            
+            // Header
+            let html = `
+                <div class="calendario-diario-header">
+                    <div class="calendario-header-cell"></div>
+                    <div class="calendario-header-cell">
+                        <div class="calendario-dia-nombre">${dia.toLocaleDateString('es-AR', { weekday: 'long' })}</div>
+                        <div class="calendario-dia-numero">${dia.getDate()}</div>
+                    </div>
+                </div>
+            `;
+
+            // Body
+            html += '<div class="calendario-diario-body"><div class="calendario-horas">';
+            
+            // Horas
+            for (let hora = 6; hora <= 23; hora++) {
+                html += `<div class="hora-cell">${hora.toString().padStart(2, '0')}:00</div>`;
+            }
+            html += '</div><div class="calendario-columna">';
+
+            // Slots
+            for (let hora = 6; hora <= 23; hora++) {
+                html += '<div class="hora-slot"></div>';
+            }
+
+            // Eventos
+            const tareasDia = tareas.filter(t => t.fecha === fechaDia && !t.completada);
+            tareasDia.sort((a, b) => {
+                if (!a.horaInicio && !b.horaInicio) return 0;
+                if (!a.horaInicio) return 1;
+                if (!b.horaInicio) return -1;
+                return a.horaInicio.localeCompare(b.horaInicio);
+            });
+
+            tareasDia.forEach(tarea => {
+                let top, height;
+                
+                if (tarea.horaInicio) {
+                    const [horaInicio, minInicio] = tarea.horaInicio.split(':').map(Number);
+                    const [horaFin, minFin] = tarea.horaFin ? tarea.horaFin.split(':').map(Number) : [horaInicio + 1, minInicio];
+                    
+                    top = ((horaInicio - 6) * 60 + minInicio) * (60 / 60);
+                    const duracion = ((horaFin - horaInicio) * 60 + (minFin - minInicio));
+                    height = Math.max(duracion * (60 / 60), 50);
+                } else {
+                    top = 0;
+                    height = 60;
+                }
+                
+                const prioridadLabel = {
+                    alta: '🔴 Alta',
+                    media: '🟡 Media',
+                    baja: '🟢 Baja'
+                };
+
+                html += `
+                    <div class="evento-diario ${tarea.categoria}" style="position: absolute; top: ${top}px; height: ${height}px;">
+                        <div class="evento-diario-titulo">${tarea.titulo}</div>
+                        ${tarea.descripcion ? `<div class="evento-diario-descripcion">${tarea.descripcion}</div>` : ''}
+                        <div class="evento-diario-meta">
+                            ${tarea.horaInicio ? `<span>⏰ ${tarea.horaInicio}${tarea.horaFin ? ' - ' + tarea.horaFin : ''}</span>` : ''}
+                            <span>${prioridadLabel[tarea.prioridad]}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div></div>';
+            container.innerHTML = html;
         }
 
         // ============================================
