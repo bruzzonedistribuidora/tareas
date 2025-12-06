@@ -2,8 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Gestor de Tareas - Bruzzone</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%232563eb'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3EB%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiR2VzdG9yIGRlIFRhcmVhcyBCcnV6em9uZSIsInNob3J0X25hbWUiOiJUYXJlYXMiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2Y1ZjVmNSIsInRoZW1lX2NvbG9yIjoiIzI1NjNlYiJ9">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,6 +32,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -35,6 +41,160 @@
             color: var(--text-primary);
             min-height: 100vh;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Login Screen */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+        }
+
+        .login-title {
+            text-align: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-danger {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .toggle-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .toggle-link {
+            color: var(--accent-blue);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .toggle-link:hover {
+            text-decoration: underline;
         }
 
         /* Loading Overlay */
@@ -77,57 +237,6 @@
             font-size: 0.95rem;
         }
 
-        /* Sync Status */
-        .sync-status {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            transition: all 0.3s;
-        }
-
-        .sync-status.syncing {
-            border-color: var(--accent-yellow);
-        }
-
-        .sync-status.synced {
-            border-color: var(--accent-green);
-        }
-
-        .sync-status.error {
-            border-color: var(--accent-red);
-        }
-
-        .sync-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-green);
-        }
-
-        .sync-status.syncing .sync-dot {
-            background: var(--accent-yellow);
-            animation: pulse 1s infinite;
-        }
-
-        .sync-status.error .sync-dot {
-            background: var(--accent-red);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
         /* Header */
         .header {
             background: var(--bg-secondary);
@@ -144,7 +253,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             gap: 1rem;
         }
 
@@ -165,6 +273,7 @@
             font-weight: 700;
             font-size: 1.2rem;
             color: white;
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -179,10 +288,169 @@
             display: block;
         }
 
-        .fecha-actual {
-            font-family: 'Space Mono', monospace;
-            color: var(--text-secondary);
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-hover);
+            border-radius: 12px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
             font-size: 0.9rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .btn-logout {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: var(--accent-red);
+            color: white;
+            border-color: var(--accent-red);
+        }
+
+        /* Notificaciones Badge */
+        .notif-badge {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .notif-badge:hover {
+            background: var(--bg-hover);
+        }
+
+        .notif-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.4rem;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Panel de Notificaciones */
+        .notif-panel {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 200;
+            transition: right 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notif-panel.open {
+            right: 0;
+        }
+
+        .notif-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notif-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .btn-close-notif {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-hover);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notif-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .notif-item {
+            background: var(--bg-hover);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .notif-item:hover {
+            background: var(--border-color);
+        }
+
+        .notif-item.unread {
+            background: #dbeafe;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .notif-item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .notif-item-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .notif-item-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
         }
 
         /* Main Layout */
@@ -194,7 +462,8 @@
 
         /* Tab Navigation */
         .tab-navigation {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 0.5rem;
             margin-bottom: 1.5rem;
             background: var(--bg-card);
@@ -204,8 +473,7 @@
         }
 
         .tab-btn {
-            flex: 1;
-            padding: 0.75rem 1.5rem;
+            padding: 0.875rem 1rem;
             border: none;
             background: transparent;
             color: var(--text-secondary);
@@ -214,6 +482,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .tab-btn:hover {
@@ -233,17 +502,11 @@
             display: block;
         }
 
-        /* Vista Lista (Original) */
+        /* Vista Lista */
         .lista-container {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             gap: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .lista-container {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* Sidebar */
@@ -296,79 +559,13 @@
             letter-spacing: 0.5px;
         }
 
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .time-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--accent-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .categorias-list {
+        .categorias-list, .usuarios-list {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .categoria-item {
+        .categoria-item, .usuario-item-simple {
             padding: 0.75rem 1rem;
             border-radius: 8px;
             cursor: pointer;
@@ -378,7 +575,7 @@
             transition: all 0.3s;
         }
 
-        .categoria-item:hover {
+        .categoria-item:hover, .usuario-item-simple:hover {
             background: var(--bg-hover);
         }
 
@@ -400,6 +597,72 @@
             color: var(--text-secondary);
         }
 
+        /* Usuarios */
+        .usuario-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--bg-hover);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .usuario-nombre {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .usuario-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .usuario-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-eliminar-usuario, .btn-whatsapp {
+            padding: 0.35rem 0.65rem;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .btn-eliminar-usuario:hover {
+            background: #fee2e2;
+            border-color: var(--accent-red);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border-color: #25D366;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            border-color: #128C7E;
+        }
+
         /* Filtros */
         .filtros {
             display: flex;
@@ -416,6 +679,7 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         .filtro-btn:hover {
@@ -430,7 +694,7 @@
 
         .buscar-container {
             flex: 1;
-            min-width: 250px;
+            min-width: 200px;
         }
 
         .buscar-input {
@@ -500,6 +764,7 @@
 
         .tarea-content {
             flex: 1;
+            min-width: 0;
         }
 
         .tarea-header {
@@ -513,17 +778,19 @@
         .tarea-titulo {
             font-weight: 600;
             font-size: 1.05rem;
+            word-break: break-word;
         }
 
         .tarea-card.completada .tarea-titulo {
             text-decoration: line-through;
         }
 
-        .tarea-categoria, .tarea-prioridad {
+        .tarea-categoria, .tarea-prioridad, .tarea-asignado {
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .tarea-categoria.distribuidora { background: #dbeafe; color: #1e40af; }
@@ -536,10 +803,41 @@
         .tarea-prioridad.media { background: #fef3c7; color: #92400e; }
         .tarea-prioridad.baja { background: #d1fae5; color: #065f46; }
 
+        .tarea-asignado {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .tarea-asignado.todos {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .avatar-mini {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.65rem;
+        }
+
+        .tarea-asignado.todos .avatar-mini {
+            background: var(--accent-purple);
+        }
+
         .tarea-descripcion {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-bottom: 0.75rem;
+            word-break: break-word;
         }
 
         .tarea-meta {
@@ -547,6 +845,7 @@
             gap: 1rem;
             font-size: 0.85rem;
             color: var(--text-muted);
+            flex-wrap: wrap;
         }
 
         .tarea-meta .vencida {
@@ -562,6 +861,7 @@
         .tarea-actions {
             display: flex;
             gap: 0.5rem;
+            flex-shrink: 0;
         }
 
         .btn-action {
@@ -599,7 +899,7 @@
             margin-bottom: 1rem;
         }
 
-        /* CRONOGRAMA */
+        /* Cronograma */
         .cronograma-controls {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -636,7 +936,7 @@
         .cronograma-fecha {
             font-size: 1.1rem;
             font-weight: 600;
-            min-width: 250px;
+            min-width: 200px;
             text-align: center;
         }
 
@@ -686,13 +986,14 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto;
         }
 
         .calendario-header {
             display: grid;
             grid-template-columns: 80px repeat(7, 1fr);
             border-bottom: 2px solid var(--border-color);
+            min-width: 600px;
         }
 
         .calendario-header-cell {
@@ -726,6 +1027,7 @@
         .calendario-body {
             display: grid;
             grid-template-columns: 80px repeat(7, 1fr);
+            min-width: 600px;
         }
 
         .calendario-horas {
@@ -857,6 +1159,57 @@
             gap: 0.75rem;
         }
 
+        /* Sync Status */
+        .sync-status {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .sync-status.syncing {
+            border-color: var(--accent-yellow);
+        }
+
+        .sync-status.synced {
+            border-color: var(--accent-green);
+        }
+
+        .sync-status.error {
+            border-color: var(--accent-red);
+        }
+
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+        }
+
+        .sync-status.syncing .sync-dot {
+            background: var(--accent-yellow);
+            animation: pulse 1s infinite;
+        }
+
+        .sync-status.error .sync-dot {
+            background: var(--accent-red);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         /* Toast */
         .toast {
             position: fixed;
@@ -871,6 +1224,7 @@
             opacity: 0;
             transition: all 0.3s;
             z-index: 1000;
+            max-width: 90%;
         }
 
         .toast.show {
@@ -878,7 +1232,75 @@
             opacity: 1;
         }
 
-        @media (max-width: 900px) {
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+
+            .lista-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: 2;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tab-navigation {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .logo-text span {
+                display: none;
+            }
+
+            .user-info {
+                padding: 0.5rem;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .filtros {
+                flex-direction: column;
+            }
+
+            .buscar-container {
+                min-width: 100%;
+            }
+
+            .tarea-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cronograma-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cronograma-nav {
+                justify-content: space-between;
+            }
+
+            .cronograma-fecha {
+                min-width: auto;
+            }
+
+            .vista-toggle {
+                justify-content: center;
+            }
+
             .calendario-header,
             .calendario-body {
                 grid-template-columns: 60px repeat(7, 1fr);
@@ -898,183 +1320,376 @@
                 font-size: 0.7rem;
             }
 
-            .evento-hora {
-                font-size: 0.6rem;
+            .notif-panel {
+                max-width: 100%;
             }
+
+            .sync-status {
+                bottom: 0.5rem;
+                right: 0.5rem;
+                padding: 0.4rem 0.75rem;
+                font-size: 0.75rem;
+            }
+
+            .toast {
+                bottom: 3.5rem;
+                right: 0.5rem;
+                left: 0.5rem;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .btn-logout {
+                padding: 0.4rem 0.75rem;
+                font-size: 0.85rem;
+            }
+
+            .card {
+                padding: 1rem;
+            }
+
+            .tarea-card {
+                padding: 1rem;
+            }
+        }
+
+        /* PWA Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 5rem;
+            left: 1rem;
+            right: 1rem;
+            background: var(--accent-blue);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            z-index: 150;
+        }
+
+        .install-prompt.show {
+            display: flex;
+        }
+
+        .install-prompt-text {
+            flex: 1;
+        }
+
+        .install-prompt-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .install-prompt-desc {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .btn-install {
+            padding: 0.5rem 1rem;
+            background: white;
+            color: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-dismiss {
+            padding: 0.5rem;
+            background: transparent;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="loading-spinner"></div>
-        <p class="loading-text">Cargando datos...</p>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">B</div>
+            <h1 class="login-title">Bruzzone Tareas</h1>
+            <p class="login-subtitle">Gestiona tus tareas y equipo</p>
+
+            <!-- Login Form -->
+            <form id="formLogin" style="display: block;">
+                <div class="form-group">
+                    <label class="form-label">Usuario</label>
+                    <select id="loginUsuario" class="form-select" required>
+                        <option value="">Seleccionar usuario...</option>
+                    </select>
+                </div>
+                <div id="passwordGroup" class="form-group" style="display: none;">
+                    <label class="form-label">Contraseña</label>
+                    <input id="loginPassword" type="password" class="form-input" placeholder="Ingresá tu contraseña">
+                </div>
+                <button type="submit" class="btn btn-primary">🔓 Ingresar</button>
+                <p class="toggle-text">
+                    ¿Sos admin? <a class="toggle-link" onclick="toggleRegistro()">Registrar nuevo usuario</a>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="formRegistro" style="display: none;">
+                <div class="form-group">
+                    <label class="form-label">Nombre completo</label>
+                    <input id="regNombre" type="text" class="form-input" placeholder="Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Teléfono (WhatsApp)</label>
+                    <input id="regTelefono" type="tel" class="form-input" placeholder="3513456789">
+                    <small style="color: var(--text-muted); font-size: 0.8rem;">Opcional - para recibir notificaciones</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="regRequierePassword" onchange="togglePasswordReg()"> 
+                        Requiere contraseña
+                    </label>
+                </div>
+                <div id="passwordRegGroup" class="form-group" style="display: none;">
+                    <label class="form-label">Contraseña</label>
+                    <input id="regPassword" type="password" class="form-input" placeholder="Mínimo 4 caracteres">
+                </div>
+                <button type="submit" class="btn btn-primary">✅ Crear usuario</button>
+                <p class="toggle-text">
+                    <a class="toggle-link" onclick="toggleRegistro()">← Volver al login</a>
+                </p>
+            </form>
+        </div>
     </div>
 
-    <!-- Header -->
-    <div class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">B</div>
-                <div class="logo-text">
-                    Bruzzone
-                    <span>Gestor de Tareas</span>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Cargando...</p>
+    </div>
+
+    <!-- App Container -->
+    <div id="appContainer" style="display: none;">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">B</div>
+                    <div class="logo-text">
+                        Bruzzone
+                        <span>Gestor de Tareas</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="notif-badge" onclick="toggleNotificaciones()">
+                        <span style="font-size: 1.5rem;">🔔</span>
+                        <span id="notifCount" class="notif-count" style="display: none;">0</span>
+                    </div>
+                    <div class="user-info">
+                        <div id="userAvatar" class="user-avatar">U</div>
+                        <div id="userName" class="user-name">Usuario</div>
+                    </div>
+                    <button class="btn-logout" onclick="cerrarSesion()">Salir</button>
                 </div>
             </div>
-            <div id="fechaActual" class="fecha-actual"></div>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Navegación de Tabs -->
-        <div class="tab-navigation">
-            <button class="tab-btn active" onclick="cambiarTab('lista')">📋 Lista de Tareas</button>
-            <button class="tab-btn" onclick="cambiarTab('cronograma')">📅 Cronograma</button>
         </div>
 
-        <!-- TAB: Lista de Tareas -->
-        <div id="tabLista" class="tab-content active">
-            <div class="lista-container">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Estadísticas -->
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <span id="statPendientes" class="stat-number">0</span>
-                            <span class="stat-label">Pendientes</span>
-                        </div>
-                        <div class="stat-card">
-                            <span id="statUrgentes" class="stat-number">0</span>
-                            <span class="stat-label">Urgentes</span>
-                        </div>
-                        <div class="stat-card">
-                            <span id="statCompletadas" class="stat-number">0</span>
-                            <span class="stat-label">Completadas</span>
-                        </div>
-                        <div class="stat-card">
-                            <span id="statTotal" class="stat-number">0</span>
-                            <span class="stat-label">Total</span>
-                        </div>
-                    </div>
+        <!-- Panel de Notificaciones -->
+        <div id="notifPanel" class="notif-panel">
+            <div class="notif-header">
+                <h2 class="notif-title">Notificaciones</h2>
+                <button class="btn-close-notif" onclick="toggleNotificaciones()">✕</button>
+            </div>
+            <div id="notifList" class="notif-list"></div>
+        </div>
 
-                    <!-- Nueva Tarea -->
-                    <div class="card">
-                        <h3 class="card-title">Nueva Tarea</h3>
-                        <form id="formTarea" onsubmit="event.preventDefault(); agregarTarea();">
-                            <div class="form-group">
-                                <label class="form-label">Título</label>
-                                <input id="inputTitulo" type="text" class="form-input" placeholder="¿Qué hay que hacer?" required>
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Navegación de Tabs -->
+            <div class="tab-navigation">
+                <button class="tab-btn active" onclick="cambiarTab('lista')">📋 Tareas</button>
+                <button class="tab-btn" onclick="cambiarTab('cronograma')">📅 Cronograma</button>
+            </div>
+
+            <!-- TAB: Lista de Tareas -->
+            <div id="tabLista" class="tab-content active">
+                <div class="lista-container">
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <!-- Estadísticas -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <span id="statPendientes" class="stat-number">0</span>
+                                <span class="stat-label">Pendientes</span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Descripción</label>
-                                <textarea id="inputDescripcion" class="form-textarea" placeholder="Detalles..."></textarea>
+                            <div class="stat-card">
+                                <span id="statUrgentes" class="stat-number">0</span>
+                                <span class="stat-label">Urgentes</span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Categoría</label>
-                                <select id="inputCategoria" class="form-select">
-                                    <option value="distribuidora">🏢 Distribuidora</option>
-                                    <option value="ferreteria">🔧 Ferretería</option>
-                                    <option value="desarrollo">💻 Desarrollo</option>
-                                    <option value="instagram">📱 Instagram</option>
-                                    <option value="personal">👤 Personal</option>
-                                </select>
+                            <div class="stat-card">
+                                <span id="statCompletadas" class="stat-number">0</span>
+                                <span class="stat-label">Completadas</span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Prioridad</label>
-                                <select id="inputPrioridad" class="form-select">
-                                    <option value="alta">🔴 Alta</option>
-                                    <option value="media">🟡 Media</option>
-                                    <option value="baja">🟢 Baja</option>
-                                </select>
+                            <div class="stat-card">
+                                <span id="statTotal" class="stat-number">0</span>
+                                <span class="stat-label">Total</span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Fecha</label>
-                                <input id="inputFecha" type="date" class="form-input">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Horario</label>
-                                <div class="time-inputs">
-                                    <input id="inputHoraInicio" type="time" class="form-input" placeholder="Inicio">
-                                    <input id="inputHoraFin" type="time" class="form-input" placeholder="Fin">
+                        </div>
+
+                        <!-- Nueva Tarea -->
+                        <div class="card">
+                            <h3 class="card-title">Nueva Tarea</h3>
+                            <form id="formTarea" onsubmit="agregarTarea(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Título</label>
+                                    <input id="inputTitulo" type="text" class="form-input" placeholder="¿Qué hay que hacer?" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Descripción</label>
+                                    <textarea id="inputDescripcion" class="form-textarea" placeholder="Detalles..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Categoría</label>
+                                    <select id="inputCategoria" class="form-select">
+                                        <option value="distribuidora">🏢 Distribuidora</option>
+                                        <option value="ferreteria">🔧 Ferretería</option>
+                                        <option value="desarrollo">💻 Desarrollo</option>
+                                        <option value="instagram">📱 Instagram</option>
+                                        <option value="personal">👤 Personal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Prioridad</label>
+                                    <select id="inputPrioridad" class="form-select">
+                                        <option value="alta">🔴 Alta</option>
+                                        <option value="media">🟡 Media</option>
+                                        <option value="baja">🟢 Baja</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Asignado a</label>
+                                    <select id="inputAsignado" class="form-select">
+                                        <option value="todos">👥 Todos</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Fecha</label>
+                                    <input id="inputFecha" type="date" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Horario</label>
+                                    <div class="time-inputs">
+                                        <input id="inputHoraInicio" type="time" class="form-input">
+                                        <input id="inputHoraFin" type="time" class="form-input">
+                                    </div>
+                                </div>
+                                <button id="btnAgregarTarea" type="submit" class="btn btn-primary">➕ Agregar</button>
+                            </form>
+                        </div>
+
+                        <!-- Categorías -->
+                        <div class="card">
+                            <h3 class="card-title">Categorías</h3>
+                            <div class="categorias-list">
+                                <div class="categoria-item active" onclick="filtrarPorCategoria('todas')">
+                                    <span>📂 Todas</span>
+                                    <span id="countTodas" class="categoria-badge">0</span>
+                                </div>
+                                <div class="categoria-item" onclick="filtrarPorCategoria('distribuidora')">
+                                    <span>🏢 Distribuidora</span>
+                                    <span id="countDistribuidora" class="categoria-badge">0</span>
+                                </div>
+                                <div class="categoria-item" onclick="filtrarPorCategoria('ferreteria')">
+                                    <span>🔧 Ferretería</span>
+                                    <span id="countFerreteria" class="categoria-badge">0</span>
+                                </div>
+                                <div class="categoria-item" onclick="filtrarPorCategoria('desarrollo')">
+                                    <span>💻 Desarrollo</span>
+                                    <span id="countDesarrollo" class="categoria-badge">0</span>
+                                </div>
+                                <div class="categoria-item" onclick="filtrarPorCategoria('instagram')">
+                                    <span>📱 Instagram</span>
+                                    <span id="countInstagram" class="categoria-badge">0</span>
+                                </div>
+                                <div class="categoria-item" onclick="filtrarPorCategoria('personal')">
+                                    <span>👤 Personal</span>
+                                    <span id="countPersonal" class="categoria-badge">0</span>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">➕ Agregar Tarea</button>
-                        </form>
-                    </div>
-
-                    <!-- Categorías -->
-                    <div class="card">
-                        <h3 class="card-title">Categorías</h3>
-                        <div class="categorias-list">
-                            <div class="categoria-item active" onclick="filtrarPorCategoria('todas')">
-                                <span>📂 Todas</span>
-                                <span id="countTodas" class="categoria-badge">0</span>
-                            </div>
-                            <div class="categoria-item" onclick="filtrarPorCategoria('distribuidora')">
-                                <span>🏢 Distribuidora</span>
-                                <span id="countDistribuidora" class="categoria-badge">0</span>
-                            </div>
-                            <div class="categoria-item" onclick="filtrarPorCategoria('ferreteria')">
-                                <span>🔧 Ferretería</span>
-                                <span id="countFerreteria" class="categoria-badge">0</span>
-                            </div>
-                            <div class="categoria-item" onclick="filtrarPorCategoria('desarrollo')">
-                                <span>💻 Desarrollo</span>
-                                <span id="countDesarrollo" class="categoria-badge">0</span>
-                            </div>
-                            <div class="categoria-item" onclick="filtrarPorCategoria('instagram')">
-                                <span>📱 Instagram</span>
-                                <span id="countInstagram" class="categoria-badge">0</span>
-                            </div>
-                            <div class="categoria-item" onclick="filtrarPorCategoria('personal')">
-                                <span>👤 Personal</span>
-                                <span id="countPersonal" class="categoria-badge">0</span>
-                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Contenido Principal -->
-                <div>
-                    <!-- Filtros -->
-                    <div class="filtros">
-                        <button class="filtro-btn active" onclick="aplicarFiltro('todas')">Todas</button>
-                        <button class="filtro-btn" onclick="aplicarFiltro('pendientes')">Pendientes</button>
-                        <button class="filtro-btn" onclick="aplicarFiltro('completadas')">Completadas</button>
-                        <button class="filtro-btn" onclick="aplicarFiltro('hoy')">Hoy</button>
-                        <div class="buscar-container">
-                            <input id="inputBuscar" type="text" class="buscar-input" placeholder="🔍 Buscar tareas..." oninput="buscarTareas(this.value)">
+                        <!-- Equipo (Solo Admin) -->
+                        <div id="equipoCard" class="card" style="display: none;">
+                            <h3 class="card-title">Gestionar Equipo</h3>
+                            <div id="usuariosLista" class="usuarios-list"></div>
                         </div>
                     </div>
 
-                    <!-- Lista de Tareas -->
-                    <div id="tareasList" class="tareas-list"></div>
+                    <!-- Contenido Principal -->
+                    <div>
+                        <!-- Filtros -->
+                        <div class="filtros">
+                            <button class="filtro-btn active" onclick="aplicarFiltro('todas')">Todas</button>
+                            <button class="filtro-btn" onclick="aplicarFiltro('pendientes')">Pendientes</button>
+                            <button class="filtro-btn" onclick="aplicarFiltro('completadas')">Completadas</button>
+                            <button class="filtro-btn" onclick="aplicarFiltro('hoy')">Hoy</button>
+                            <select id="filtroUsuario" class="form-select" style="width: auto; min-width: 150px;" onchange="filtrarPorUsuario(this.value)">
+                                <option value="todos">👥 Todos los usuarios</option>
+                            </select>
+                            <div class="buscar-container">
+                                <input id="inputBuscar" type="text" class="buscar-input" placeholder="🔍 Buscar..." oninput="buscarTareas(this.value)">
+                            </div>
+                        </div>
+
+                        <!-- Lista de Tareas -->
+                        <div id="tareasList" class="tareas-list"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TAB: Cronograma -->
-        <div id="tabCronograma" class="tab-content">
-            <!-- Controles del Cronograma -->
-            <div class="cronograma-controls">
-                <div class="cronograma-nav">
-                    <button class="nav-btn" onclick="navegarCronograma(-1)">◀</button>
-                    <div id="cronogramaFecha" class="cronograma-fecha"></div>
-                    <button class="nav-btn" onclick="navegarCronograma(1)">▶</button>
+            <!-- TAB: Cronograma -->
+            <div id="tabCronograma" class="tab-content">
+                <!-- Controles del Cronograma -->
+                <div class="cronograma-controls">
+                    <div class="cronograma-nav">
+                        <button class="nav-btn" onclick="navegarCronograma(-1)">◀</button>
+                        <div id="cronogramaFecha" class="cronograma-fecha"></div>
+                        <button class="nav-btn" onclick="navegarCronograma(1)">▶</button>
+                    </div>
+                    <button class="btn-hoy" onclick="irAHoy()">Hoy</button>
+                    <div class="vista-toggle">
+                        <button class="vista-btn active" onclick="cambiarVistaCronograma('semanal')">Semana</button>
+                        <button class="vista-btn" onclick="cambiarVistaCronograma('diario')">Día</button>
+                    </div>
                 </div>
-                <button class="btn-hoy" onclick="irAHoy()">Hoy</button>
-                <div class="vista-toggle">
-                    <button class="vista-btn active" onclick="cambiarVistaCronograma('semanal')">Semana</button>
-                    <button class="vista-btn" onclick="cambiarVistaCronograma('diario')">Día</button>
-                </div>
+
+                <!-- Vista Semanal -->
+                <div id="vistaSemanal" class="calendario-semanal"></div>
+
+                <!-- Vista Diaria -->
+                <div id="vistaDiaria" class="calendario-diario" style="display: none;"></div>
             </div>
-
-            <!-- Vista Semanal -->
-            <div id="vistaSemanal" class="calendario-semanal"></div>
-
-            <!-- Vista Diaria -->
-            <div id="vistaDiaria" class="calendario-diario" style="display: none;"></div>
         </div>
     </div>
 
@@ -1086,6 +1701,16 @@
 
     <!-- Toast -->
     <div id="toast" class="toast"></div>
+
+    <!-- Install Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="install-prompt-text">
+            <div class="install-prompt-title">Instalar aplicación</div>
+            <div class="install-prompt-desc">Agregá la app a tu pantalla de inicio</div>
+        </div>
+        <button class="btn-install" onclick="instalarPWA()">Instalar</button>
+        <button class="btn-dismiss" onclick="ocultarInstall()">✕</button>
+    </div>
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -1111,27 +1736,305 @@
         // VARIABLES GLOBALES
         // ============================================
         let tareas = [];
+        let usuarios = [];
+        let notificaciones = [];
+        let usuarioActual = null;
         let categoriaActiva = 'todas';
         let filtroActivo = 'todas';
+        let usuarioFiltro = 'todos';
         let busqueda = '';
         let tabActual = 'lista';
         let vistaCronograma = 'semanal';
         let fechaCronograma = new Date();
+        let deferredPrompt = null;
 
         // ============================================
         // INICIALIZACIÓN
         // ============================================
         window.addEventListener('DOMContentLoaded', () => {
-            actualizarFecha();
-            cargarTareas();
+            cargarUsuariosLogin();
+            setupPWA();
         });
 
+        function setupPWA() {
+            // Service Worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('data:text/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdpbnN0YWxsJywgZnVuY3Rpb24oZSkge30pOw==');
+            }
+
+            // Install Prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                setTimeout(() => {
+                    document.getElementById('installPrompt').classList.add('show');
+                }, 3000);
+            });
+        }
+
+        function instalarPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                    ocultarInstall();
+                });
+            }
+        }
+
+        function ocultarInstall() {
+            document.getElementById('installPrompt').classList.remove('show');
+        }
+
+        // ============================================
+        // AUTENTICACIÓN
+        // ============================================
+        function cargarUsuariosLogin() {
+            db.collection('usuarios').orderBy('nombre').onSnapshot(snapshot => {
+                const select = document.getElementById('loginUsuario');
+                select.innerHTML = '<option value="">Seleccionar usuario...</option>';
+                
+                snapshot.forEach(doc => {
+                    const usuario = doc.data();
+                    const option = document.createElement('option');
+                    option.value = doc.id;
+                    option.textContent = usuario.nombre;
+                    option.dataset.requiresPassword = usuario.password ? 'true' : 'false';
+                    option.dataset.password = usuario.password || '';
+                    select.appendChild(option);
+                });
+            });
+        }
+
+        document.getElementById('loginUsuario').addEventListener('change', function() {
+            const selected = this.options[this.selectedIndex];
+            const requiresPassword = selected.dataset.requiresPassword === 'true';
+            document.getElementById('passwordGroup').style.display = requiresPassword ? 'block' : 'none';
+            document.getElementById('loginPassword').required = requiresPassword;
+        });
+
+        document.getElementById('formLogin').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const usuarioId = document.getElementById('loginUsuario').value;
+            const password = document.getElementById('loginPassword').value;
+            const selected = document.getElementById('loginUsuario').options[document.getElementById('loginUsuario').selectedIndex];
+            
+            if (!usuarioId) {
+                mostrarToast('⚠️ Seleccioná un usuario');
+                return;
+            }
+
+            const requiresPassword = selected.dataset.requiresPassword === 'true';
+            const storedPassword = selected.dataset.password;
+
+            if (requiresPassword && password !== storedPassword) {
+                mostrarToast('❌ Contraseña incorrecta');
+                return;
+            }
+
+            const usuarioDoc = await db.collection('usuarios').doc(usuarioId).get();
+            usuarioActual = { id: usuarioId, ...usuarioDoc.data() };
+            
+            localStorage.setItem('usuarioActualId', usuarioId);
+            
+            iniciarApp();
+        });
+
+        document.getElementById('formRegistro').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('regNombre').value.trim();
+            const telefono = document.getElementById('regTelefono').value.trim();
+            const requiresPassword = document.getElementById('regRequierePassword').checked;
+            const password = document.getElementById('regPassword').value;
+
+            if (!nombre) {
+                mostrarToast('⚠️ Ingresá un nombre');
+                return;
+            }
+
+            if (requiresPassword && password.length < 4) {
+                mostrarToast('⚠️ La contraseña debe tener mínimo 4 caracteres');
+                return;
+            }
+
+            try {
+                const nuevoUsuario = {
+                    nombre,
+                    telefono: telefono || null,
+                    password: requiresPassword ? password : null,
+                    esAdmin: false,
+                    fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('usuarios').add(nuevoUsuario);
+                
+                mostrarToast('✅ Usuario creado exitosamente');
+                document.getElementById('formRegistro').reset();
+                toggleRegistro();
+            } catch (error) {
+                console.error('Error creando usuario:', error);
+                mostrarToast('❌ Error al crear usuario');
+            }
+        });
+
+        function toggleRegistro() {
+            const login = document.getElementById('formLogin');
+            const registro = document.getElementById('formRegistro');
+            
+            if (login.style.display === 'none') {
+                login.style.display = 'block';
+                registro.style.display = 'none';
+            } else {
+                login.style.display = 'none';
+                registro.style.display = 'block';
+            }
+        }
+
+        function togglePasswordReg() {
+            const checked = document.getElementById('regRequierePassword').checked;
+            document.getElementById('passwordRegGroup').style.display = checked ? 'block' : 'none';
+            document.getElementById('regPassword').required = checked;
+        }
+
+        async function iniciarApp() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+            
+            // Actualizar UI usuario
+            const inicial = usuarioActual.nombre.charAt(0).toUpperCase();
+            document.getElementById('userAvatar').textContent = inicial;
+            document.getElementById('userName').textContent = usuarioActual.nombre;
+
+            // Mostrar gestión de equipo solo para admin
+            if (usuarioActual.esAdmin) {
+                document.getElementById('equipoCard').style.display = 'block';
+            }
+
+            cargarUsuarios();
+            cargarTareas();
+            cargarNotificaciones();
+        }
+
+        function cerrarSesion() {
+            if (confirm('¿Cerrar sesión?')) {
+                localStorage.removeItem('usuarioActualId');
+                location.reload();
+            }
+        }
+
+        // ============================================
+        // USUARIOS
+        // ============================================
+        function cargarUsuarios() {
+            db.collection('usuarios').orderBy('nombre').onSnapshot(snapshot => {
+                usuarios = [];
+                snapshot.forEach(doc => {
+                    usuarios.push({ id: doc.id, ...doc.data() });
+                });
+                
+                renderizarEquipo();
+                actualizarSelectsUsuarios();
+            });
+        }
+
+        function renderizarEquipo() {
+            const container = document.getElementById('usuariosLista');
+            
+            if (usuarios.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 1rem 0;">No hay usuarios</p>';
+                return;
+            }
+
+            container.innerHTML = usuarios.map(usuario => {
+                const inicial = usuario.nombre.charAt(0).toUpperCase();
+                const tienePassword = usuario.password ? '🔒' : '🔓';
+                const tieneWhatsApp = usuario.telefono ? '✅' : '❌';
+                
+                return `
+                    <div class="usuario-item">
+                        <div class="usuario-nombre">
+                            <div class="usuario-avatar">${inicial}</div>
+                            <div>
+                                <div>${usuario.nombre}</div>
+                                <div class="usuario-meta">
+                                    ${tienePassword} ${tieneWhatsApp} WhatsApp
+                                </div>
+                            </div>
+                        </div>
+                        ${usuario.telefono ? `<button class="btn-whatsapp" onclick="enviarWhatsAppTest('${usuario.telefono}', '${usuario.nombre}')">📱</button>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function actualizarSelectsUsuarios() {
+            // Select asignación
+            const selectAsignado = document.getElementById('inputAsignado');
+            const valorActual = selectAsignado.value;
+            
+            selectAsignado.innerHTML = '<option value="todos">👥 Todos</option>';
+            usuarios.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario.id;
+                option.textContent = `👤 ${usuario.nombre}`;
+                selectAsignado.appendChild(option);
+            });
+            
+            if (valorActual) {
+                selectAsignado.value = valorActual;
+            }
+
+            // Select filtro
+            const selectFiltro = document.getElementById('filtroUsuario');
+            const valorFiltro = selectFiltro.value;
+            
+            selectFiltro.innerHTML = '<option value="todos">👥 Todos los usuarios</option>';
+            usuarios.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario.id;
+                option.textContent = `👤 ${usuario.nombre}`;
+                selectFiltro.appendChild(option);
+            });
+            
+            if (valorFiltro) {
+                selectFiltro.value = valorFiltro;
+            }
+        }
+
+        function obtenerNombreUsuario(usuarioId) {
+            if (usuarioId === 'todos') return 'Todos';
+            const usuario = usuarios.find(u => u.id === usuarioId);
+            return usuario ? usuario.nombre : 'Sin asignar';
+        }
+
+        function obtenerInicialUsuario(usuarioId) {
+            if (usuarioId === 'todos') return '👥';
+            const usuario = usuarios.find(u => u.id === usuarioId);
+            return usuario ? usuario.nombre.charAt(0).toUpperCase() : '?';
+        }
+
+        function enviarWhatsAppTest(telefono, nombre) {
+            const mensaje = `Hola ${nombre}, esta es una prueba de notificación del sistema de tareas Bruzzone.`;
+            const url = `https://wa.me/54${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+
+        // ============================================
+        // TAREAS
+        // ============================================
         function cargarTareas() {
             db.collection('tareas').onSnapshot(snapshot => {
+                const tareasAnteriores = [...tareas];
                 tareas = [];
+                
                 snapshot.forEach(doc => {
                     tareas.push({ id: doc.id, ...doc.data() });
                 });
+                
+                // Detectar nuevas tareas asignadas al usuario actual
+                detectarNuevasTareas(tareasAnteriores, tareas);
                 
                 renderizarTareas();
                 actualizarEstadisticas();
@@ -1146,40 +2049,37 @@
                 setTimeout(() => {
                     document.getElementById('loadingOverlay').classList.add('hidden');
                 }, 500);
-            }, error => {
-                console.error('Error cargando tareas:', error);
-                setSyncStatus('error', 'Error de conexión');
-                document.getElementById('loadingOverlay').classList.add('hidden');
             });
         }
 
-        // ============================================
-        // GESTIÓN DE TABS
-        // ============================================
-        function cambiarTab(tab) {
-            tabActual = tab;
-            
-            // Actualizar botones
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // Mostrar contenido
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
-            
-            if (tab === 'cronograma') {
-                renderizarCronograma();
-            }
+        function detectarNuevasTareas(anteriores, nuevas) {
+            if (!usuarioActual || anteriores.length === 0) return;
+
+            nuevas.forEach(tarea => {
+                const existia = anteriores.find(t => t.id === tarea.id);
+                
+                if (!existia && 
+                    (tarea.asignado === usuarioActual.id || tarea.asignado === 'todos') && 
+                    !tarea.completada) {
+                    
+                    // Crear notificación
+                    crearNotificacion(tarea);
+                    
+                    // Enviar WhatsApp si el usuario tiene teléfono
+                    if (usuarioActual.telefono && tarea.asignado === usuarioActual.id) {
+                        enviarNotificacionWhatsApp(tarea);
+                    }
+                }
+            });
         }
 
-        // ============================================
-        // CRUD TAREAS
-        // ============================================
-        async function agregarTarea() {
+        async function agregarTarea(e) {
+            e.preventDefault();
+            
             const titulo = document.getElementById('inputTitulo').value.trim();
             if (!titulo) return;
 
-            const btn = event.target.querySelector('button[type="submit"]');
+            const btn = document.getElementById('btnAgregarTarea');
             btn.disabled = true;
             setSyncStatus('syncing', 'Guardando...');
 
@@ -1188,28 +2088,25 @@
                 descripcion: document.getElementById('inputDescripcion').value.trim(),
                 categoria: document.getElementById('inputCategoria').value,
                 prioridad: document.getElementById('inputPrioridad').value,
+                asignado: document.getElementById('inputAsignado').value,
                 fecha: document.getElementById('inputFecha').value,
                 horaInicio: document.getElementById('inputHoraInicio').value,
                 horaFin: document.getElementById('inputHoraFin').value,
                 completada: false,
+                creadoPor: usuarioActual.id,
                 fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
             };
 
             try {
                 await db.collection('tareas').add(tarea);
                 
-                // Limpiar formulario
-                document.getElementById('inputTitulo').value = '';
-                document.getElementById('inputDescripcion').value = '';
-                document.getElementById('inputFecha').value = '';
-                document.getElementById('inputHoraInicio').value = '';
-                document.getElementById('inputHoraFin').value = '';
+                document.getElementById('formTarea').reset();
                 
-                mostrarToast('✅ Tarea agregada y sincronizada');
+                mostrarToast('✅ Tarea agregada');
             } catch (error) {
-                console.error('Error agregando tarea:', error);
-                mostrarToast('❌ Error al guardar la tarea');
-                setSyncStatus('error', 'Error al guardar');
+                console.error('Error:', error);
+                mostrarToast('❌ Error al guardar');
+                setSyncStatus('error', 'Error');
             } finally {
                 btn.disabled = false;
             }
@@ -1222,12 +2119,14 @@
             if (tarea) {
                 try {
                     await db.collection('tareas').doc(id).update({
-                        completada: !tarea.completada
+                        completada: !tarea.completada,
+                        completadoPor: !tarea.completada ? usuarioActual.id : null,
+                        fechaCompletado: !tarea.completada ? firebase.firestore.FieldValue.serverTimestamp() : null
                     });
-                    mostrarToast(tarea.completada ? '↩️ Tarea reabierta' : '🎉 ¡Tarea completada!');
+                    mostrarToast(tarea.completada ? '↩️ Tarea reabierta' : '🎉 ¡Completada!');
                 } catch (error) {
-                    console.error('Error actualizando tarea:', error);
-                    mostrarToast('❌ Error al actualizar');
+                    console.error('Error:', error);
+                    mostrarToast('❌ Error');
                     setSyncStatus('error', 'Error');
                 }
             }
@@ -1239,17 +2138,153 @@
                 
                 try {
                     await db.collection('tareas').doc(id).delete();
-                    mostrarToast('🗑️ Tarea eliminada');
+                    mostrarToast('🗑️ Eliminada');
                 } catch (error) {
-                    console.error('Error eliminando tarea:', error);
-                    mostrarToast('❌ Error al eliminar');
+                    console.error('Error:', error);
+                    mostrarToast('❌ Error');
                     setSyncStatus('error', 'Error');
                 }
             }
         }
 
         // ============================================
-        // FILTROS Y RENDERIZADO LISTA
+        // NOTIFICACIONES
+        // ============================================
+        function cargarNotificaciones() {
+            if (!usuarioActual) return;
+
+            db.collection('notificaciones')
+                .where('usuarioId', '==', usuarioActual.id)
+                .orderBy('fecha', 'desc')
+                .limit(50)
+                .onSnapshot(snapshot => {
+                    notificaciones = [];
+                    snapshot.forEach(doc => {
+                        notificaciones.push({ id: doc.id, ...doc.data() });
+                    });
+                    
+                    renderizarNotificaciones();
+                    actualizarContadorNotificaciones();
+                });
+        }
+
+        function renderizarNotificaciones() {
+            const container = document.getElementById('notifList');
+            
+            if (notificaciones.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No hay notificaciones</p></div>';
+                return;
+            }
+
+            container.innerHTML = notificaciones.map(notif => {
+                const fecha = notif.fecha ? notif.fecha.toDate() : new Date();
+                const fechaTexto = formatearFechaRelativa(fecha);
+                
+                return `
+                    <div class="notif-item ${notif.leida ? '' : 'unread'}" onclick="marcarNotificacionLeida('${notif.id}')">
+                        <div class="notif-item-title">${notif.titulo}</div>
+                        <div class="notif-item-text">${notif.mensaje}</div>
+                        <div class="notif-item-meta">
+                            <span>${fechaTexto}</span>
+                            ${!notif.leida ? '<span>•</span>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function actualizarContadorNotificaciones() {
+            const noLeidas = notificaciones.filter(n => !n.leida).length;
+            const badge = document.getElementById('notifCount');
+            
+            if (noLeidas > 0) {
+                badge.textContent = noLeidas > 99 ? '99+' : noLeidas;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        async function crearNotificacion(tarea) {
+            if (!usuarioActual) return;
+
+            try {
+                await db.collection('notificaciones').add({
+                    usuarioId: usuarioActual.id,
+                    titulo: '📋 Nueva tarea asignada',
+                    mensaje: tarea.titulo,
+                    tareaId: tarea.id || null,
+                    leida: false,
+                    fecha: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch (error) {
+                console.error('Error creando notificación:', error);
+            }
+        }
+
+        async function marcarNotificacionLeida(id) {
+            try {
+                await db.collection('notificaciones').doc(id).update({
+                    leida: true
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function toggleNotificaciones() {
+            const panel = document.getElementById('notifPanel');
+            panel.classList.toggle('open');
+        }
+
+        function enviarNotificacionWhatsApp(tarea) {
+            if (!usuarioActual.telefono) return;
+
+            const categoria = {
+                distribuidora: '🏢 Distribuidora',
+                ferreteria: '🔧 Ferretería',
+                desarrollo: '💻 Desarrollo',
+                instagram: '📱 Instagram',
+                personal: '👤 Personal'
+            }[tarea.categoria];
+
+            const prioridad = {
+                alta: '🔴 URGENTE',
+                media: '🟡 Media',
+                baja: '🟢 Baja'
+            }[tarea.prioridad];
+
+            let mensaje = `*NUEVA TAREA ASIGNADA*\n\n`;
+            mensaje += `📋 *${tarea.titulo}*\n`;
+            if (tarea.descripcion) mensaje += `${tarea.descripcion}\n\n`;
+            mensaje += `${categoria} | ${prioridad}\n`;
+            if (tarea.fecha) mensaje += `📅 ${new Date(tarea.fecha).toLocaleDateString('es-AR')}\n`;
+            if (tarea.horaInicio) mensaje += `⏰ ${tarea.horaInicio}${tarea.horaFin ? ' - ' + tarea.horaFin : ''}\n`;
+            mensaje += `\n_Sistema de Tareas Bruzzone_`;
+
+            const url = `https://wa.me/54${usuarioActual.telefono}?text=${encodeURIComponent(mensaje)}`;
+            
+            // En producción real, esto se haría desde el backend
+            // Por ahora, solo muestra el link
+            console.log('WhatsApp URL:', url);
+        }
+
+        function formatearFechaRelativa(fecha) {
+            const ahora = new Date();
+            const diff = ahora - fecha;
+            const minutos = Math.floor(diff / 60000);
+            const horas = Math.floor(diff / 3600000);
+            const dias = Math.floor(diff / 86400000);
+
+            if (minutos < 1) return 'Ahora';
+            if (minutos < 60) return `Hace ${minutos}m`;
+            if (horas < 24) return `Hace ${horas}h`;
+            if (dias < 7) return `Hace ${dias}d`;
+            return fecha.toLocaleDateString('es-AR');
+        }
+
+        // ============================================
+        // FILTROS Y RENDERIZADO
         // ============================================
         function filtrarPorCategoria(categoria) {
             categoriaActiva = categoria;
@@ -1269,6 +2304,11 @@
             renderizarTareas();
         }
 
+        function filtrarPorUsuario(usuarioId) {
+            usuarioFiltro = usuarioId;
+            renderizarTareas();
+        }
+
         function buscarTareas(texto) {
             busqueda = texto.toLowerCase();
             renderizarTareas();
@@ -1279,6 +2319,10 @@
 
             if (categoriaActiva !== 'todas') {
                 resultado = resultado.filter(t => t.categoria === categoriaActiva);
+            }
+
+            if (usuarioFiltro !== 'todos') {
+                resultado = resultado.filter(t => t.asignado === usuarioFiltro || t.asignado === 'todos');
             }
 
             if (filtroActivo === 'pendientes') {
@@ -1361,10 +2405,14 @@
                     if (tarea.horaInicio) {
                         fechaTexto += ` ${tarea.horaInicio}`;
                         if (tarea.horaFin) {
-                            fechaTexto += ` - ${tarea.horaFin}`;
+                            fechaTexto += `-${tarea.horaFin}`;
                         }
                     }
                 }
+
+                const asignado = tarea.asignado || 'todos';
+                const nombreUsuario = obtenerNombreUsuario(asignado);
+                const inicialUsuario = obtenerInicialUsuario(asignado);
 
                 return `
                     <div class="tarea-card ${tarea.completada ? 'completada' : ''}">
@@ -1374,6 +2422,10 @@
                                 <span class="tarea-titulo">${tarea.titulo}</span>
                                 <span class="tarea-categoria ${tarea.categoria}">${categoriaLabel[tarea.categoria]}</span>
                                 <span class="tarea-prioridad ${tarea.prioridad}">${prioridadLabel[tarea.prioridad]}</span>
+                                <span class="tarea-asignado ${asignado === 'todos' ? 'todos' : ''}">
+                                    <span class="avatar-mini">${inicialUsuario}</span>
+                                    ${nombreUsuario}
+                                </span>
                             </div>
                             ${tarea.descripcion ? `<div class="tarea-descripcion">${tarea.descripcion}</div>` : ''}
                             <div class="tarea-meta">
@@ -1389,8 +2441,47 @@
         }
 
         // ============================================
-        // CRONOGRAMA
+        // ESTADÍSTICAS
         // ============================================
+        function actualizarEstadisticas() {
+            const pendientes = tareas.filter(t => !t.completada).length;
+            const urgentes = tareas.filter(t => !t.completada && t.prioridad === 'alta').length;
+            const completadas = tareas.filter(t => t.completada).length;
+
+            document.getElementById('statPendientes').textContent = pendientes;
+            document.getElementById('statUrgentes').textContent = urgentes;
+            document.getElementById('statCompletadas').textContent = completadas;
+            document.getElementById('statTotal').textContent = tareas.length;
+        }
+
+        function actualizarContadores() {
+            const pendientes = tareas.filter(t => !t.completada);
+            
+            document.getElementById('countTodas').textContent = pendientes.length;
+            document.getElementById('countDistribuidora').textContent = pendientes.filter(t => t.categoria === 'distribuidora').length;
+            document.getElementById('countFerreteria').textContent = pendientes.filter(t => t.categoria === 'ferreteria').length;
+            document.getElementById('countDesarrollo').textContent = pendientes.filter(t => t.categoria === 'desarrollo').length;
+            document.getElementById('countInstagram').textContent = pendientes.filter(t => t.categoria === 'instagram').length;
+            document.getElementById('countPersonal').textContent = pendientes.filter(t => t.categoria === 'personal').length;
+        }
+
+        // ============================================
+        // TABS Y CRONOGRAMA
+        // ============================================
+        function cambiarTab(tab) {
+            tabActual = tab;
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+            
+            if (tab === 'cronograma') {
+                renderizarCronograma();
+            }
+        }
+
         function cambiarVistaCronograma(vista) {
             vistaCronograma = vista;
             
@@ -1434,7 +2525,6 @@
             const inicioSemana = new Date(fechaCronograma);
             inicioSemana.setDate(fechaCronograma.getDate() - fechaCronograma.getDay());
             
-            // Actualizar título
             const finSemana = new Date(inicioSemana);
             finSemana.setDate(inicioSemana.getDate() + 6);
             document.getElementById('cronogramaFecha').textContent = 
@@ -1444,7 +2534,6 @@
             const hoy = new Date().toISOString().split('T')[0];
             const dias = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
             
-            // Header
             let headerHTML = '<div class="calendario-header"><div class="calendario-header-cell"></div>';
             for (let i = 0; i < 7; i++) {
                 const dia = new Date(inicioSemana);
@@ -1460,16 +2549,13 @@
             }
             headerHTML += '</div>';
 
-            // Body
             let bodyHTML = '<div class="calendario-body"><div class="calendario-horas">';
             
-            // Horas
             for (let hora = 6; hora <= 23; hora++) {
                 bodyHTML += `<div class="hora-cell">${hora.toString().padStart(2, '0')}:00</div>`;
             }
             bodyHTML += '</div>';
 
-            // Columnas de días
             for (let i = 0; i < 7; i++) {
                 const dia = new Date(inicioSemana);
                 dia.setDate(inicioSemana.getDate() + i);
@@ -1477,12 +2563,10 @@
                 
                 bodyHTML += '<div class="calendario-columna">';
                 
-                // Slots de horas
                 for (let hora = 6; hora <= 23; hora++) {
                     bodyHTML += '<div class="hora-slot"></div>';
                 }
                 
-                // Eventos
                 const tareasDia = tareas.filter(t => t.fecha === fechaDia && t.horaInicio && !t.completada);
                 tareasDia.forEach(tarea => {
                     const [horaInicio, minInicio] = tarea.horaInicio.split(':').map(Number);
@@ -1495,7 +2579,7 @@
                     bodyHTML += `
                         <div class="evento ${tarea.categoria}" style="top: ${top}px; height: ${height}px;">
                             <div class="evento-titulo">${tarea.titulo}</div>
-                            <div class="evento-hora">${tarea.horaInicio} - ${tarea.horaFin || ''}</div>
+                            <div class="evento-hora">${tarea.horaInicio}-${tarea.horaFin || ''}</div>
                         </div>
                     `;
                 });
@@ -1510,14 +2594,12 @@
         function renderizarDiario() {
             const dia = new Date(fechaCronograma);
             
-            // Actualizar título
             document.getElementById('cronogramaFecha').textContent = 
                 dia.toLocaleDateString('es-AR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' });
 
             const container = document.getElementById('vistaDiaria');
             const fechaDia = dia.toISOString().split('T')[0];
             
-            // Header
             let html = `
                 <div class="calendario-diario-header">
                     <div class="calendario-header-cell"></div>
@@ -1528,21 +2610,17 @@
                 </div>
             `;
 
-            // Body
             html += '<div class="calendario-diario-body"><div class="calendario-horas">';
             
-            // Horas
             for (let hora = 6; hora <= 23; hora++) {
                 html += `<div class="hora-cell">${hora.toString().padStart(2, '0')}:00</div>`;
             }
             html += '</div><div class="calendario-columna">';
 
-            // Slots
             for (let hora = 6; hora <= 23; hora++) {
                 html += '<div class="hora-slot"></div>';
             }
 
-            // Eventos
             const tareasDia = tareas.filter(t => t.fecha === fechaDia && !t.completada);
             tareasDia.sort((a, b) => {
                 if (!a.horaInicio && !b.horaInicio) return 0;
@@ -1577,7 +2655,7 @@
                         <div class="evento-diario-titulo">${tarea.titulo}</div>
                         ${tarea.descripcion ? `<div class="evento-diario-descripcion">${tarea.descripcion}</div>` : ''}
                         <div class="evento-diario-meta">
-                            ${tarea.horaInicio ? `<span>⏰ ${tarea.horaInicio}${tarea.horaFin ? ' - ' + tarea.horaFin : ''}</span>` : ''}
+                            ${tarea.horaInicio ? `<span>⏰ ${tarea.horaInicio}${tarea.horaFin ? '-' + tarea.horaFin : ''}</span>` : ''}
                             <span>${prioridadLabel[tarea.prioridad]}</span>
                         </div>
                     </div>
@@ -1589,39 +2667,8 @@
         }
 
         // ============================================
-        // ESTADÍSTICAS
-        // ============================================
-        function actualizarEstadisticas() {
-            const pendientes = tareas.filter(t => !t.completada).length;
-            const urgentes = tareas.filter(t => !t.completada && t.prioridad === 'alta').length;
-            const completadas = tareas.filter(t => t.completada).length;
-
-            document.getElementById('statPendientes').textContent = pendientes;
-            document.getElementById('statUrgentes').textContent = urgentes;
-            document.getElementById('statCompletadas').textContent = completadas;
-            document.getElementById('statTotal').textContent = tareas.length;
-        }
-
-        function actualizarContadores() {
-            const pendientes = tareas.filter(t => !t.completada);
-            
-            document.getElementById('countTodas').textContent = pendientes.length;
-            document.getElementById('countDistribuidora').textContent = pendientes.filter(t => t.categoria === 'distribuidora').length;
-            document.getElementById('countFerreteria').textContent = pendientes.filter(t => t.categoria === 'ferreteria').length;
-            document.getElementById('countDesarrollo').textContent = pendientes.filter(t => t.categoria === 'desarrollo').length;
-            document.getElementById('countInstagram').textContent = pendientes.filter(t => t.categoria === 'instagram').length;
-            document.getElementById('countPersonal').textContent = pendientes.filter(t => t.categoria === 'personal').length;
-        }
-
-        // ============================================
         // UTILIDADES
         // ============================================
-        function actualizarFecha() {
-            const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const fecha = new Date().toLocaleDateString('es-AR', opciones);
-            document.getElementById('fechaActual').textContent = fecha.charAt(0).toUpperCase() + fecha.slice(1);
-        }
-
         function setSyncStatus(status, text) {
             const el = document.getElementById('syncStatus');
             const textEl = document.getElementById('syncText');
